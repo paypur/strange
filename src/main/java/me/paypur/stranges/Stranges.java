@@ -1,6 +1,7 @@
 package me.paypur.stranges;
 
 import com.mojang.logging.LogUtils;
+import me.paypur.stranges.event.ForgeEvents;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
@@ -29,15 +30,54 @@ public class Stranges {
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public Stranges() {
-        // Register the setup method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-        // Register the enqueueIMC method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
-        // Register the processIMC method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
+        MinecraftForge.EVENT_BUS.register(new ForgeEvents());
+    }
 
-        // Register ourselves for server and other game events we are interested in
-        MinecraftForge.EVENT_BUS.register(this);
+    // surely these a better way to do this
+    public static String rank(long n) {
+        if (n < 10) {
+            return "Strange";
+        } else if (n < 25) {
+            return "Unremarkable";
+        } else if (n < 45) {
+            return "Scarcely Lethal";
+        } else if (n < 70) {
+            return "Mildly Menacing";
+        } else if (n < 100) {
+            return "Somewhat Threatening";
+        } else if (n < 135) {
+            return "Uncharitable";
+        } else if (n < 175) {
+            return "Notably Dangerous";
+        } else if (n < 225) {
+            return "Sufficiently Lethal";
+        } else if (n < 275) {
+            return "Truly Feared";
+        } else if (n < 350) {
+            return "Spectacularly Lethal";
+        } else if (n < 500) {
+            return "Gore-Spattered";
+        } else if (n < 750) {
+            return "Wicked Nasty";
+        } else if (n < 999) {
+            return "Positively Inhumane";
+        } else if (n < 1000) {
+            return "Totally Ordinary";
+        } else if (n < 1500) {
+            return "Face-Melting";
+        } else if (n < 2500) {
+            return "Rage-Inducing";
+        } else if (n < 5000) {
+            return "Server-Clearing";
+        } else if (n < 7500) {
+            return "Epic";
+        } else if (n < 7616) {
+            return "Legendary";
+        } else if (n < 8500) {
+            return "Australian";
+        } else {
+            return "Hale's Own";
+        }
     }
 
     private void setup(final FMLCommonSetupEvent event) {
