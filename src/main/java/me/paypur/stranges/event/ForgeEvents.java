@@ -3,13 +3,13 @@ package me.paypur.stranges.event;
 import me.paypur.stranges.Stranges;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.LongTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -20,26 +20,30 @@ public class ForgeEvents {
 
     // note: runs every tick
     @SubscribeEvent
-    void tooltip(ItemTooltipEvent event) {
+    void onTooltip(ItemTooltipEvent event) {
 
         if (event.getItemStack().getItem().equals(Items.WOODEN_AXE)) {
+
             CompoundTag tag = event.getItemStack().getTag();
 
             // CompoundTag id is 10
-            ListTag tags = tag != null ? tag.getList("Strange", 10) : new ListTag();
-
-            long kills = ((LongTag) tags.getCompound(0).get("kills")).getAsLong();
+            CompoundTag tags = tag.getCompound("Strange");
 
             List<Component> components = event.getToolTip();
             components.add(TextComponent.EMPTY);
+
+            long kills = tags.getLong("kills");
             components.add((new TextComponent(String.format("%s - Kills: %d", Stranges.rank(kills), kills)).withStyle(ChatFormatting.GRAY)));
+
+            double damage = tags.getDouble("damage");
+            components.add((new TextComponent(String.format("Damange: %.2f", damage)).withStyle(ChatFormatting.GRAY)));
 
         }
 
     }
 
     @SubscribeEvent
-    void attack(LivingDeathEvent event) {
+    void onKill(LivingDeathEvent event) {
         if (event.getSource().getEntity() instanceof Player player) {
             ItemStack item = player.getMainHandItem();
 
@@ -49,22 +53,47 @@ public class ForgeEvents {
                 return;
             }
 
-            if (tag.getList("Strange", 10).isEmpty()) {
-                tag.put("Strange", new ListTag());
+            if (tag.getCompound("Strange").isEmpty()) {
+                tag.put("Strange", new CompoundTag());
             }
 
-            ListTag strange = tag.getList("Strange", 10);
+            CompoundTag strange = tag.getCompound("Strange");
 
             if (strange.isEmpty()) {
-                CompoundTag killsTag = new CompoundTag();
-                killsTag.putLong("kills", 0);
-                strange.add(killsTag);
+                strange.putLong("kills", 0);
             }
 
-            CompoundTag killsTag = (CompoundTag) strange.get(0);
-            long kills = ((LongTag) killsTag.get("kills")).getAsLong();
-            killsTag.putLong("kills", kills + 1);
+            long kills = strange.getLong("kills");
+            strange.putLong("kills", kills + 1);
 
+            tag.put("Strange", strange);
+        }
+    }
+
+    @SubscribeEvent
+    void onDamage(LivingDamageEvent event) {
+        if (event.getSource().getEntity() instanceof Player player && event.getEntity() instanceof LivingEntity livingEntity) {
+            ItemStack item = player.getMainHandItem();
+
+            CompoundTag tag = item.getTag();
+
+            if (tag == null) {
+                return;
+            }
+
+            if (tag.getCompound("Strange").isEmpty()) {
+                tag.put("Strange", new CompoundTag());
+            }
+
+            CompoundTag strange = tag.getCompound("Strange");
+
+            if (!strange.contains("damage")) {
+                strange.putDouble("damage", 0);
+            }
+
+            float dealt = Math.min(livingEntity.getHealth(), event.getAmount());
+            double damage = strange.getDouble("damage");
+            strange.putDouble("damage", damage + dealt);
             tag.put("Strange", strange);
         }
     }
