@@ -34,7 +34,8 @@ public abstract class UpgradeRecipeMixin implements Recipe<Container> {
             }
 
             if (tag.contains("Strange")) {
-                cir.cancel();
+                cir.setReturnValue(ItemStack.EMPTY);
+                return;
             }
 
             tag.put("Strange", new CompoundTag());

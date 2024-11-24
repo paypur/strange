@@ -2,8 +2,7 @@ package me.paypur.stranges;
 
 import me.paypur.stranges.event.ForgeEvents;
 import me.paypur.stranges.event.ModEvents;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.*;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -33,6 +32,25 @@ public class Stranges {
         mod.register(new ModEvents());
 
         ITEMS.register(mod);
+    }
+
+    // TODO: should also add
+    // fishing rod
+    // shield
+    // bucket
+    // flint and steel
+    // shears
+    // also custom item types like tinkers
+    public static boolean isStrangifiable(Item item) {
+        return Stranges.isWeapon(item) || isArmor(item);
+    }
+
+    public static boolean isArmor(Item item) {
+        return item instanceof ArmorItem;
+    }
+
+    public static boolean isWeapon(Item item) {
+        return item instanceof TieredItem || item instanceof BowItem;
     }
 
     // surely these a better way to do this

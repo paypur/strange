@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:bow"
+  },
+  "addition": {
+    "item": "stranges:strangifier"
+  },
+  "result": {
+    "item": "minecraft:bow"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:wooden_hoe"
+  },
+  "addition": {
+    "item": "stranges:strangifier"
+  },
+  "result": {
+    "item": "minecraft:wooden_hoe"
+  }
+}

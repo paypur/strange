@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:turtle_helmet"
+  },
+  "addition": {
+    "item": "stranges:strangifier"
+  },
+  "result": {
+    "item": "minecraft:turtle_helmet"
+  }
+}
