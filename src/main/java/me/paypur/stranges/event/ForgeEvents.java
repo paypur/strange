@@ -8,7 +8,7 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.TieredItem;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -22,21 +22,32 @@ public class ForgeEvents {
     @SubscribeEvent
     void onTooltip(ItemTooltipEvent event) {
 
-        if (event.getItemStack().getItem().equals(Items.WOODEN_AXE)) {
+        // TODO: no tags for weapons
+//        List<> tagList = List.of(Tags.Items.)
+//        Optional<IReverseTag<Item>> t = ForgeRegistries.ITEMS.tags(). getReverseTag(event.getItemStack().getItem());
+
+        if (event.getItemStack().getItem() instanceof TieredItem) {
 
             CompoundTag tag = event.getItemStack().getTag();
 
-            // CompoundTag id is 10
-            CompoundTag tags = tag.getCompound("Strange");
+            if (tag == null) {
+                return;
+            }
+
+            if (!tag.contains("Strange")) {
+                return;
+            }
+
+            CompoundTag strange = tag.getCompound("Strange");
 
             List<Component> components = event.getToolTip();
             components.add(TextComponent.EMPTY);
 
-            long kills = tags.getLong("kills");
+            long kills = strange.getLong("kills");
             components.add((new TextComponent(String.format("%s - Kills: %d", Stranges.rank(kills), kills)).withStyle(ChatFormatting.GRAY)));
 
-            double damage = tags.getDouble("damage");
-            components.add((new TextComponent(String.format("Damange: %.2f", damage)).withStyle(ChatFormatting.GRAY)));
+            double damage = strange.getDouble("damage");
+            components.add((new TextComponent(String.format("Damage: %.2f", damage)).withStyle(ChatFormatting.GRAY)));
 
         }
 
@@ -53,13 +64,13 @@ public class ForgeEvents {
                 return;
             }
 
-            if (tag.getCompound("Strange").isEmpty()) {
-                tag.put("Strange", new CompoundTag());
+            if (!tag.contains("Strange")) {
+                return;
             }
 
             CompoundTag strange = tag.getCompound("Strange");
 
-            if (strange.isEmpty()) {
+            if (!strange.contains("kills")) {
                 strange.putLong("kills", 0);
             }
 
@@ -81,8 +92,8 @@ public class ForgeEvents {
                 return;
             }
 
-            if (tag.getCompound("Strange").isEmpty()) {
-                tag.put("Strange", new CompoundTag());
+            if (!tag.contains("Strange")) {
+                return;
             }
 
             CompoundTag strange = tag.getCompound("Strange");
