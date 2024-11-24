@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "stranges:smithing/strange_part_damage_dealt_netherite_sword"
+    ]
+  },
+  "criteria": {
+    "has_strange_part_damage_dealt": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "stranges:strange_part_damage_dealt"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "stranges:smithing/strange_part_damage_dealt_netherite_sword"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_strange_part_damage_dealt",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -22,10 +22,14 @@ public class DataGen extends RecipeProvider {
     }
 
     @Override
-    protected void buildCraftingRecipes(Consumer<FinishedRecipe> pFinishedRecipeConsumer) {
+    protected void buildCraftingRecipes(@NotNull Consumer<FinishedRecipe> pFinishedRecipeConsumer) {
         ForgeRegistries.ITEMS.getValues().stream()
                 .filter(Stranges::isStrangifiable)
                 .forEach(item -> strangify(pFinishedRecipeConsumer, item));
+
+        ForgeRegistries.ITEMS.getValues().stream()
+                .filter(Stranges::isWeapon)
+                .forEach(item -> strangePart(pFinishedRecipeConsumer, item, Stranges.STRANGE_PART_DAMAGE_DEALT.get()));
     }
 
     private void strangify(Consumer<FinishedRecipe> pFinishedRecipeConsumer, Item item) {
@@ -34,6 +38,11 @@ public class DataGen extends RecipeProvider {
                 .save(pFinishedRecipeConsumer, new ResourceLocation(MOD_ID, "smithing/strangify_" + item));
     }
 
+    private void strangePart(Consumer<FinishedRecipe> pFinishedRecipeConsumer, Item item, Item part) {
+        UpgradeRecipeBuilder.smithing(Ingredient.of(item), Ingredient.of(part), item)
+                .unlocks("has_" + part, has(part))
+                .save(pFinishedRecipeConsumer, new ResourceLocation(MOD_ID, "smithing/" + part + "_" + item));
+    }
 
     @Override
     public @NotNull String getName() {

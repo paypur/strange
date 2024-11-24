@@ -2,6 +2,7 @@ package me.paypur.stranges;
 
 import me.paypur.stranges.event.ForgeEvents;
 import me.paypur.stranges.event.ModEvents;
+import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.*;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -23,6 +24,10 @@ public class Stranges {
     private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MOD_ID);
 
     public static final RegistryObject<Item> STRANGIFIER = ITEMS.register("strangifier", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> STRANGE_PART_DAMAGE_DEALT = ITEMS.register("strange_part_damage_dealt", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+
+    public static final String KEY_DAMAGE = "damage";
+    public static final String KEY_BLOCKS = "blocks";
 
     public Stranges() {
         IEventBus forge = MinecraftForge.EVENT_BUS;
@@ -42,7 +47,13 @@ public class Stranges {
     // shears
     // also custom item types like tinkers
     public static boolean isStrangifiable(Item item) {
-        return Stranges.isWeapon(item) || isArmor(item);
+        return isWeapon(item) || isTool(item) || isArmor(item) ||
+                item instanceof ElytraItem ||
+                item instanceof ShieldItem ||
+                item instanceof FishingRodItem ||
+                item instanceof ShearsItem ||
+                item instanceof BucketItem ||
+                item instanceof FlintAndSteelItem;
     }
 
     public static boolean isArmor(Item item) {
@@ -50,7 +61,22 @@ public class Stranges {
     }
 
     public static boolean isWeapon(Item item) {
-        return item instanceof TieredItem || item instanceof BowItem;
+        return item instanceof SwordItem || item instanceof BowItem || item instanceof CrossbowItem || item instanceof TridentItem;
+    }
+
+    public static boolean isTool(Item item) {
+        return item instanceof TieredItem && !(item instanceof SwordItem);
+    }
+
+    public static String rankAnnouncement(long n) {
+        String pre = rank(n - 1);
+        String post = rank(n);
+
+        if (!pre.equals(post)) {
+            // send chat message
+        }
+
+        return post;
     }
 
     // surely these a better way to do this

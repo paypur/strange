@@ -3,6 +3,7 @@ package me.paypur.stranges.mixin;
 import me.paypur.stranges.Stranges;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Container;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -23,11 +24,17 @@ public abstract class UpgradeRecipeMixin implements Recipe<Container> {
     @Final
     Ingredient addition;
 
-    @Inject(method = "assemble", at = @At(value = "RETURN"), locals = LocalCapture.CAPTURE_FAILEXCEPTION, cancellable = true)
-    void thing(Container pInv, CallbackInfoReturnable<ItemStack> cir, ItemStack itemStack){
+    @Inject(method = "assemble", at = @At(value = "RETURN"), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
+    void strange(Container pInv, CallbackInfoReturnable<ItemStack> cir, ItemStack stack){
         ItemStack[] items = this.addition.getItems();
-        if (items.length >= 1 && items[0].getItem().equals(Stranges.STRANGIFIER.get())) {
-            CompoundTag tag = itemStack.getTag();
+        if (items.length != 1) {
+            return;
+        }
+
+        Item add = items[0].getItem();
+
+        if (add.equals(Stranges.STRANGIFIER.get())) {
+            CompoundTag tag = stack.getTag();
 
             if (tag == null) {
                 return;
@@ -40,15 +47,38 @@ public abstract class UpgradeRecipeMixin implements Recipe<Container> {
 
             tag.put("Strange", new CompoundTag());
 
-            String name = itemStack.getHoverName().getString();
+            String name = stack.getHoverName().getString();
             CompoundTag display = tag.getCompound("display");
-
             display.putString("Name", String.format("{\"text\":\"%s\",\"color\":\"#CF6A32\",\"italic\":false}", name));
 
             tag.put("display", display);
 
-            cir.setReturnValue(itemStack);
+            cir.setReturnValue(stack);
+        } else if (add.equals(Stranges.STRANGE_PART_DAMAGE_DEALT.get())) {
+            CompoundTag tag = stack.getTag();
+
+            if (tag == null) {
+                return;
+            }
+
+            if (!tag.contains("Strange")) {
+                cir.setReturnValue(ItemStack.EMPTY);
+                return;
+            }
+
+            CompoundTag strange = tag.getCompound("Strange");
+
+            if (tag.contains(Stranges.KEY_DAMAGE)) {
+                cir.setReturnValue(ItemStack.EMPTY);
+                return;
+            }
+
+            strange.putLong(Stranges.KEY_DAMAGE, 0);
+            tag.put(Stranges.KEY_DAMAGE, strange);
+
+            cir.setReturnValue(stack);
         }
+
     }
 
 }
