@@ -1,6 +1,6 @@
-package me.paypur.stranges.mixin;
+package me.paypur.strange.mixin;
 
-import me.paypur.stranges.Stranges;
+import me.paypur.strange.Strange;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
@@ -33,7 +33,7 @@ public abstract class UpgradeRecipeMixin implements Recipe<Container> {
 
         Item add = items[0].getItem();
 
-        if (add.equals(Stranges.STRANGIFIER.get())) {
+        if (add.equals(Strange.STRANGIFIER.get())) {
             CompoundTag tag = stack.getTag();
 
             if (tag == null) {
@@ -54,7 +54,7 @@ public abstract class UpgradeRecipeMixin implements Recipe<Container> {
             tag.put("display", display);
 
             cir.setReturnValue(stack);
-        } else if (add.equals(Stranges.STRANGE_PART_DAMAGE_DEALT.get())) {
+        } else if (add.equals(Strange.STRANGE_PART_DAMAGE_DEALT.get())) {
             CompoundTag tag = stack.getTag();
 
             if (tag == null) {
@@ -68,13 +68,13 @@ public abstract class UpgradeRecipeMixin implements Recipe<Container> {
 
             CompoundTag strange = tag.getCompound("Strange");
 
-            if (tag.contains(Stranges.KEY_DAMAGE)) {
+            if (tag.contains(Strange.KEY_DAMAGE)) {
                 cir.setReturnValue(ItemStack.EMPTY);
                 return;
             }
 
-            strange.putLong(Stranges.KEY_DAMAGE, 0);
-            tag.put(Stranges.KEY_DAMAGE, strange);
+            strange.putLong(Strange.KEY_DAMAGE, 0);
+            tag.put(Strange.KEY_DAMAGE, strange);
 
             cir.setReturnValue(stack);
         }

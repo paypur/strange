@@ -1,6 +1,6 @@
-package me.paypur.stranges.event;
+package me.paypur.strange.event;
 
-import me.paypur.stranges.data.DataGen;
+import me.paypur.strange.data.DataGen;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;

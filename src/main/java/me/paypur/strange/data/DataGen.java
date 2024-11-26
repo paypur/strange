@@ -1,6 +1,6 @@
-package me.paypur.stranges.data;
+package me.paypur.strange.data;
 
-import me.paypur.stranges.Stranges;
+import me.paypur.strange.Strange;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
 
-import static me.paypur.stranges.Stranges.MOD_ID;
+import static me.paypur.strange.Strange.MOD_ID;
 
 public class DataGen extends RecipeProvider {
 
@@ -24,17 +24,17 @@ public class DataGen extends RecipeProvider {
     @Override
     protected void buildCraftingRecipes(@NotNull Consumer<FinishedRecipe> pFinishedRecipeConsumer) {
         ForgeRegistries.ITEMS.getValues().stream()
-                .filter(Stranges::isStrangifiable)
+                .filter(Strange::isStrangifiable)
                 .forEach(item -> strangify(pFinishedRecipeConsumer, item));
 
         ForgeRegistries.ITEMS.getValues().stream()
-                .filter(Stranges::isWeapon)
-                .forEach(item -> strangePart(pFinishedRecipeConsumer, item, Stranges.STRANGE_PART_DAMAGE_DEALT.get()));
+                .filter(Strange::isWeapon)
+                .forEach(item -> strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_DAMAGE_DEALT.get()));
     }
 
     private void strangify(Consumer<FinishedRecipe> pFinishedRecipeConsumer, Item item) {
-        UpgradeRecipeBuilder.smithing(Ingredient.of(item), Ingredient.of(Stranges.STRANGIFIER.get()), item)
-                .unlocks("has_strangifier", has(Stranges.STRANGIFIER.get()))
+        UpgradeRecipeBuilder.smithing(Ingredient.of(item), Ingredient.of(Strange.STRANGIFIER.get()), item)
+                .unlocks("has_strangifier", has(Strange.STRANGIFIER.get()))
                 .save(pFinishedRecipeConsumer, new ResourceLocation(MOD_ID, "smithing/strangify_" + item));
     }
 

@@ -1,8 +1,7 @@
-package me.paypur.stranges;
+package me.paypur.strange;
 
-import me.paypur.stranges.event.ForgeEvents;
-import me.paypur.stranges.event.ModEvents;
-import net.minecraft.client.Minecraft;
+import me.paypur.strange.event.ForgeEvents;
+import me.paypur.strange.event.ModEvents;
 import net.minecraft.world.item.*;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -13,13 +12,13 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 
-import static me.paypur.stranges.Stranges.MOD_ID;
+import static me.paypur.strange.Strange.MOD_ID;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(MOD_ID)
-public class Stranges {
+public class Strange {
 
-    public static final String MOD_ID = "stranges";
+    public static final String MOD_ID = "strange";
 
     private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MOD_ID);
 
@@ -29,7 +28,7 @@ public class Stranges {
     public static final String KEY_DAMAGE = "damage";
     public static final String KEY_BLOCKS = "blocks";
 
-    public Stranges() {
+    public Strange() {
         IEventBus forge = MinecraftForge.EVENT_BUS;
         IEventBus mod = FMLJavaModLoadingContext.get().getModEventBus();
 

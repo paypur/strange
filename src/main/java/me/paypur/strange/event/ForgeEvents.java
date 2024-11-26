@@ -1,6 +1,6 @@
-package me.paypur.stranges.event;
+package me.paypur.strange.event;
 
-import me.paypur.stranges.Stranges;
+import me.paypur.strange.Strange;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -33,21 +33,21 @@ public class ForgeEvents {
         List<Component> components = event.getToolTip();
         components.add(TextComponent.EMPTY);
 
-        if (Stranges.isWeapon(stack.getItem())) {
+        if (Strange.isWeapon(stack.getItem())) {
             long kills = strange.getLong("kills");
-            components.add((new TextComponent(String.format("%s - Kills: %d", Stranges.rank(kills), kills)).withStyle(ChatFormatting.DARK_GRAY)));
+            components.add((new TextComponent(String.format("%s - Kills: %d", Strange.rank(kills), kills)).withStyle(ChatFormatting.DARK_GRAY)));
 
-            if (strange.contains(Stranges.KEY_DAMAGE)) {
-                double damage = strange.getDouble(Stranges.KEY_DAMAGE);
+            if (strange.contains(Strange.KEY_DAMAGE)) {
+                double damage = strange.getDouble(Strange.KEY_DAMAGE);
                 components.add((new TextComponent(String.format("Damage Dealt: %.2f", damage)).withStyle(ChatFormatting.DARK_GRAY)));
             }
 
-        } else if (Stranges.isTool(stack.getItem())) {
-            long blocks = strange.getLong(Stranges.KEY_BLOCKS);
-            components.add((new TextComponent(String.format("%s - Blocks Broken: %d", Stranges.rank(blocks), blocks)).withStyle(ChatFormatting.DARK_GRAY)));
-        } else if (Stranges.isArmor(stack.getItem())) {
+        } else if (Strange.isTool(stack.getItem())) {
+            long blocks = strange.getLong(Strange.KEY_BLOCKS);
+            components.add((new TextComponent(String.format("%s - Blocks Broken: %d", Strange.rank(blocks), blocks)).withStyle(ChatFormatting.DARK_GRAY)));
+        } else if (Strange.isArmor(stack.getItem())) {
             long hits = strange.getLong("hits");
-            components.add((new TextComponent(String.format("%s - Hits Taken: %d", Stranges.rank(hits), hits)).withStyle(ChatFormatting.DARK_GRAY)));
+            components.add((new TextComponent(String.format("%s - Hits Taken: %d", Strange.rank(hits), hits)).withStyle(ChatFormatting.DARK_GRAY)));
         }
 
     }
@@ -58,7 +58,7 @@ public class ForgeEvents {
             ItemStack item = player.getMainHandItem();
             CompoundTag tag = item.getTag();
 
-            if (!Stranges.isWeapon(item.getItem()) || tag == null || !tag.contains("Strange")) {
+            if (!Strange.isWeapon(item.getItem()) || tag == null || !tag.contains("Strange")) {
                 return;
             }
 
@@ -77,21 +77,21 @@ public class ForgeEvents {
             ItemStack stack = player.getMainHandItem();
             CompoundTag tag = stack.getTag();
 
-            if (!Stranges.isWeapon(stack.getItem()) || tag == null || !tag.contains("Strange")) {
+            if (!Strange.isWeapon(stack.getItem()) || tag == null || !tag.contains("Strange")) {
                 return;
             }
 
             CompoundTag strange = tag.getCompound("Strange");
             
-            if (!strange.contains(Stranges.KEY_DAMAGE)) {
+            if (!strange.contains(Strange.KEY_DAMAGE)) {
                 return;
             }
 
             float dealt = Math.min(event.getEntityLiving().getHealth(), event.getAmount());
-            double damage = strange.getDouble(Stranges.KEY_DAMAGE);
+            double damage = strange.getDouble(Strange.KEY_DAMAGE);
 
-            strange.putDouble(Stranges.KEY_DAMAGE, damage + dealt);
-            tag.put(Stranges.KEY_DAMAGE, strange);
+            strange.putDouble(Strange.KEY_DAMAGE, damage + dealt);
+            tag.put(Strange.KEY_DAMAGE, strange);
         } else if (event.getEntityLiving() instanceof Player player) {
             for (ItemStack armor: player.getArmorSlots()) {
                 CompoundTag tag = armor.getTag();
@@ -116,14 +116,14 @@ public class ForgeEvents {
         ItemStack stack = event.getPlayer().getMainHandItem();
         CompoundTag tag = stack.getTag();
 
-        if (tag == null || !Stranges.isTool(stack.getItem()) || !tag.contains("Strange")) {
+        if (tag == null || !Strange.isTool(stack.getItem()) || !tag.contains("Strange")) {
             return;
         }
 
         CompoundTag strange = tag.getCompound("Strange");
 
-        long blocks = strange.getLong(Stranges.KEY_BLOCKS);
-        strange.putLong(Stranges.KEY_BLOCKS, blocks + 1);
+        long blocks = strange.getLong(Strange.KEY_BLOCKS);
+        strange.putLong(Strange.KEY_BLOCKS, blocks + 1);
     }
 
 }
