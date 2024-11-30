@@ -24,29 +24,29 @@ public class ForgeEvents {
         ItemStack stack = event.getItemStack();
         CompoundTag tag = event.getItemStack().getTag();
 
-        if (tag == null || !tag.contains("Strange")) {
+        if (tag == null || !tag.contains(Strange.MOD_ID)) {
             return;
         }
 
-        CompoundTag strange = tag.getCompound("Strange");
+        CompoundTag strange = tag.getCompound(Strange.MOD_ID);
 
         List<Component> components = event.getToolTip();
         components.add(TextComponent.EMPTY);
 
         if (Strange.isWeapon(stack.getItem())) {
-            long kills = strange.getLong("kills");
+            long kills = strange.getLong(Strange.TAG_KILLS);
             components.add((new TextComponent(String.format("%s - Kills: %d", Strange.rank(kills), kills)).withStyle(ChatFormatting.DARK_GRAY)));
 
-            if (strange.contains(Strange.KEY_DAMAGE)) {
-                double damage = strange.getDouble(Strange.KEY_DAMAGE);
+            if (strange.contains(Strange.TAG_DAMAGE_DEALT)) {
+                double damage = strange.getDouble(Strange.TAG_DAMAGE_DEALT);
                 components.add((new TextComponent(String.format("Damage Dealt: %.2f", damage)).withStyle(ChatFormatting.DARK_GRAY)));
             }
 
         } else if (Strange.isTool(stack.getItem())) {
-            long blocks = strange.getLong(Strange.KEY_BLOCKS);
+            long blocks = strange.getLong(Strange.TAG_BLOCKS_BROKEN);
             components.add((new TextComponent(String.format("%s - Blocks Broken: %d", Strange.rank(blocks), blocks)).withStyle(ChatFormatting.DARK_GRAY)));
         } else if (Strange.isArmor(stack.getItem())) {
-            long hits = strange.getLong("hits");
+            long hits = strange.getLong(Strange.TAG_HITS_TAKEN);
             components.add((new TextComponent(String.format("%s - Hits Taken: %d", Strange.rank(hits), hits)).withStyle(ChatFormatting.DARK_GRAY)));
         }
 
@@ -55,19 +55,19 @@ public class ForgeEvents {
     @SubscribeEvent
     void onKill(LivingDeathEvent event) {
         if (event.getSource().getEntity() instanceof Player player) {
-            ItemStack item = player.getMainHandItem();
-            CompoundTag tag = item.getTag();
+            ItemStack stack = player.getMainHandItem();
+            CompoundTag tag = stack.getTag();
 
-            if (!Strange.isWeapon(item.getItem()) || tag == null || !tag.contains("Strange")) {
+            if (!Strange.isWeapon(stack.getItem()) || tag == null || !tag.contains(Strange.MOD_ID)) {
                 return;
             }
 
-            CompoundTag strange = tag.getCompound("Strange");
+            CompoundTag strange = tag.getCompound(Strange.MOD_ID);
 
-            long kills = strange.getLong("kills");
-            strange.putLong("kills", kills + 1);
+            long kills = strange.getLong(Strange.TAG_KILLS);
+            strange.putLong(Strange.TAG_KILLS, kills + 1);
 
-            tag.put("Strange", strange);
+            tag.put(Strange.TAG_HITS_TAKEN, strange);
         }
     }
 
@@ -77,21 +77,22 @@ public class ForgeEvents {
             ItemStack stack = player.getMainHandItem();
             CompoundTag tag = stack.getTag();
 
-            if (!Strange.isWeapon(stack.getItem()) || tag == null || !tag.contains("Strange")) {
+            if (!Strange.isWeapon(stack.getItem()) || tag == null || !tag.contains(Strange.MOD_ID)) {
                 return;
             }
 
-            CompoundTag strange = tag.getCompound("Strange");
+            CompoundTag strange = tag.getCompound(Strange.MOD_ID);
             
-            if (!strange.contains(Strange.KEY_DAMAGE)) {
+            if (!strange.contains(Strange.TAG_DAMAGE_DEALT)) {
                 return;
             }
 
             float dealt = Math.min(event.getEntityLiving().getHealth(), event.getAmount());
-            double damage = strange.getDouble(Strange.KEY_DAMAGE);
+            double damage = strange.getDouble(Strange.TAG_DAMAGE_DEALT);
 
-            strange.putDouble(Strange.KEY_DAMAGE, damage + dealt);
-            tag.put(Strange.KEY_DAMAGE, strange);
+            strange.putDouble(Strange.TAG_DAMAGE_DEALT, damage + dealt);
+
+            tag.put(Strange.TAG_DAMAGE_DEALT, strange);
         } else if (event.getEntityLiving() instanceof Player player) {
             for (ItemStack armor: player.getArmorSlots()) {
                 CompoundTag tag = armor.getTag();
@@ -100,12 +101,12 @@ public class ForgeEvents {
                     return;
                 }
 
-                CompoundTag strange = tag.getCompound("Strange");
+                CompoundTag strange = tag.getCompound(Strange.TAG_HITS_TAKEN);
 
-                long hits = strange.getLong("hits");
-                strange.putLong("hits", hits + 1);
+                long hits = strange.getLong(Strange.TAG_HITS_TAKEN);
+                strange.putLong(Strange.TAG_HITS_TAKEN, hits + 1);
 
-                tag.put("Strange", strange);
+                tag.put(Strange.TAG_HITS_TAKEN, strange);
             }
         }
 
@@ -116,14 +117,14 @@ public class ForgeEvents {
         ItemStack stack = event.getPlayer().getMainHandItem();
         CompoundTag tag = stack.getTag();
 
-        if (tag == null || !Strange.isTool(stack.getItem()) || !tag.contains("Strange")) {
+        if (tag == null || !Strange.isTool(stack.getItem()) || !tag.contains(Strange.TAG_HITS_TAKEN)) {
             return;
         }
 
-        CompoundTag strange = tag.getCompound("Strange");
+        CompoundTag strange = tag.getCompound(Strange.TAG_HITS_TAKEN);
 
-        long blocks = strange.getLong(Strange.KEY_BLOCKS);
-        strange.putLong(Strange.KEY_BLOCKS, blocks + 1);
+        long blocks = strange.getLong(Strange.TAG_BLOCKS_BROKEN);
+        strange.putLong(Strange.TAG_BLOCKS_BROKEN, blocks + 1);
     }
 
 }

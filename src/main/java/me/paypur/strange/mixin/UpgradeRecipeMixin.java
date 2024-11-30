@@ -40,18 +40,14 @@ public abstract class UpgradeRecipeMixin implements Recipe<Container> {
                 return;
             }
 
-            if (tag.contains("Strange")) {
+            if (tag.contains(Strange.MOD_ID)) {
                 cir.setReturnValue(ItemStack.EMPTY);
                 return;
             }
 
-            tag.put("Strange", new CompoundTag());
+            tag.put(Strange.MOD_ID, new CompoundTag());
 
-            String name = stack.getHoverName().getString();
-            CompoundTag display = tag.getCompound("display");
-            display.putString("Name", String.format("{\"text\":\"%s\",\"color\":\"#CF6A32\",\"italic\":false}", name));
-
-            tag.put("display", display);
+            stack.setHoverName(stack.getHoverName().copy().withStyle(s -> s.withColor(Strange.COLOR)));
 
             cir.setReturnValue(stack);
         } else if (add.equals(Strange.STRANGE_PART_DAMAGE_DEALT.get())) {
@@ -61,20 +57,20 @@ public abstract class UpgradeRecipeMixin implements Recipe<Container> {
                 return;
             }
 
-            if (!tag.contains("Strange")) {
+            if (!tag.contains(Strange.MOD_ID)) {
                 cir.setReturnValue(ItemStack.EMPTY);
                 return;
             }
 
-            CompoundTag strange = tag.getCompound("Strange");
+            CompoundTag strange = tag.getCompound(Strange.MOD_ID);
 
-            if (tag.contains(Strange.KEY_DAMAGE)) {
+            if (tag.contains(Strange.TAG_KILLS)) {
                 cir.setReturnValue(ItemStack.EMPTY);
                 return;
             }
 
-            strange.putLong(Strange.KEY_DAMAGE, 0);
-            tag.put(Strange.KEY_DAMAGE, strange);
+            strange.putLong(Strange.TAG_KILLS, 0);
+            tag.put(Strange.TAG_KILLS, strange);
 
             cir.setReturnValue(stack);
         }

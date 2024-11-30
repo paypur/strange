@@ -14,19 +14,31 @@ import net.minecraftforge.registries.RegistryObject;
 
 import static me.paypur.strange.Strange.MOD_ID;
 
-// The value here should match an entry in the META-INF/mods.toml file
 @Mod(MOD_ID)
 public class Strange {
 
+    // The value here should match an entry in the META-INF/mods.toml file
     public static final String MOD_ID = "strange";
+
+    public static final int COLOR = 0xCF6A32;
 
     private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MOD_ID);
 
     public static final RegistryObject<Item> STRANGIFIER = ITEMS.register("strangifier", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
     public static final RegistryObject<Item> STRANGE_PART_DAMAGE_DEALT = ITEMS.register("strange_part_damage_dealt", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
 
-    public static final String KEY_DAMAGE = "damage";
-    public static final String KEY_BLOCKS = "blocks";
+
+    // weapons
+    public static final String TAG_DAMAGE_DEALT = "damage_dealt";
+    public static final String TAG_KILLS = "kills";
+
+    // tools
+    public static final String TAG_BLOCKS_BROKEN = "blocks_broken";
+
+    // armor
+    public static final String TAG_HITS_TAKEN = "hits_taken";
+
+    // misc
 
     public Strange() {
         IEventBus forge = MinecraftForge.EVENT_BUS;
