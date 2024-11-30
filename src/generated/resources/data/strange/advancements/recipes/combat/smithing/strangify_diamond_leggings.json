@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "strange:smithing/strangify_diamond_leggings"
+    ]
+  },
+  "criteria": {
+    "has_strangifier": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "strange:strangifier"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "strange:smithing/strangify_diamond_leggings"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_strangifier",
+      "has_the_recipe"
+    ]
+  ]
+}

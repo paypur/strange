@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:fishing_rod"
+  },
+  "addition": {
+    "item": "strange:strangifier"
+  },
+  "result": {
+    "item": "minecraft:fishing_rod"
+  }
+}

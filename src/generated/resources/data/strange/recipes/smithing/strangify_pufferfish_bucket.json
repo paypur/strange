@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:pufferfish_bucket"
+  },
+  "addition": {
+    "item": "strange:strangifier"
+  },
+  "result": {
+    "item": "minecraft:pufferfish_bucket"
+  }
+}

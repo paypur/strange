@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:water_bucket"
+  },
+  "addition": {
+    "item": "strange:strangifier"
+  },
+  "result": {
+    "item": "minecraft:water_bucket"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:flint_and_steel"
+  },
+  "addition": {
+    "item": "strange:strangifier"
+  },
+  "result": {
+    "item": "minecraft:flint_and_steel"
+  }
+}
