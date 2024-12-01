@@ -97,7 +97,7 @@ public class ForgeEvents {
             for (ItemStack armor: player.getArmorSlots()) {
                 CompoundTag tag = armor.getTag();
 
-                if (!(armor.getItem() instanceof ArmorItem) || tag == null) {
+                if (!(armor.getItem() instanceof ArmorItem) || tag == null || !tag.contains(Strange.MOD_ID)) {
                     continue;
                 }
 
@@ -117,11 +117,11 @@ public class ForgeEvents {
         ItemStack stack = event.getPlayer().getMainHandItem();
         CompoundTag tag = stack.getTag();
 
-        if (tag == null || !Strange.isTool(stack.getItem()) || !tag.contains(Strange.TAG_HITS_TAKEN)) {
+        if (tag == null || !Strange.isTool(stack.getItem()) || !tag.contains(Strange.MOD_ID)) {
             return;
         }
 
-        CompoundTag strange = tag.getCompound(Strange.TAG_HITS_TAKEN);
+        CompoundTag strange = tag.getCompound(Strange.MOD_ID);
 
         long blocks = strange.getLong(Strange.TAG_BLOCKS_BROKEN);
         strange.putLong(Strange.TAG_BLOCKS_BROKEN, blocks + 1);
