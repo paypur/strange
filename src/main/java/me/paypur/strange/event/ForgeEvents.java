@@ -98,10 +98,10 @@ public class ForgeEvents {
                 CompoundTag tag = armor.getTag();
 
                 if (!(armor.getItem() instanceof ArmorItem) || tag == null) {
-                    return;
+                    continue;
                 }
 
-                CompoundTag strange = tag.getCompound(Strange.TAG_HITS_TAKEN);
+                CompoundTag strange = tag.getCompound(Strange.MOD_ID);
 
                 long hits = strange.getLong(Strange.TAG_HITS_TAKEN);
                 strange.putLong(Strange.TAG_HITS_TAKEN, hits + 1);
