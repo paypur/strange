@@ -51,13 +51,13 @@ public abstract class UpgradeRecipeMixin implements Recipe<Container> {
 
             CompoundTag strange = tag.getCompound(Strange.MOD_ID);
 
-            if (tag.contains(Strange.TAG_DAMAGE_DEALT)) {
+            if (tag.contains(Strange.NBT_DAMAGE_DEALT)) {
                 cir.setReturnValue(ItemStack.EMPTY);
                 return;
             }
 
-            strange.putLong(Strange.TAG_DAMAGE_DEALT, 0);
-            tag.put(Strange.TAG_DAMAGE_DEALT, strange);
+            strange.putLong(Strange.NBT_DAMAGE_DEALT, 0);
+            tag.put(Strange.NBT_DAMAGE_DEALT, strange);
 
             cir.setReturnValue(stack);
         } else if (add.equals(Strange.STRANGE_PART_ORES_BROKEN.get())) {
@@ -74,13 +74,13 @@ public abstract class UpgradeRecipeMixin implements Recipe<Container> {
 
             CompoundTag strange = tag.getCompound(Strange.MOD_ID);
 
-            if (tag.contains(Strange.TAG_ORES_BROKEN)) {
+            if (tag.contains(Strange.NBT_ORES_BROKEN)) {
                 cir.setReturnValue(ItemStack.EMPTY);
                 return;
             }
 
-            strange.putLong(Strange.TAG_ORES_BROKEN, 0);
-            tag.put(Strange.TAG_ORES_BROKEN, strange);
+            strange.putLong(Strange.NBT_ORES_BROKEN, 0);
+            tag.put(Strange.NBT_ORES_BROKEN, strange);
 
             cir.setReturnValue(stack);
         }

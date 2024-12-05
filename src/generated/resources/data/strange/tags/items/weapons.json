@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "#strange:weapons/melee",
+    "#strange:weapons/ranged"
+  ]
+}

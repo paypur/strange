@@ -2,6 +2,9 @@ package me.paypur.strange;
 
 import me.paypur.strange.event.ForgeEvents;
 import me.paypur.strange.event.ModEvents;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.*;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -23,32 +26,41 @@ public class Strange {
     public static final int COLOR = 0xCF6A32;
 
     private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MOD_ID);
-
     private static final Item.Properties ITEM_PROPERTIES = new Item.Properties().rarity(Rarity.EPIC).tab(CreativeModeTab.TAB_MISC);
 
     public static final RegistryObject<Item> STRANGIFIER = ITEMS.register("strangifier", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> STRANGE_PART_DAMAGE_DEALT = ITEMS.register("strange_part_damage_dealt", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> STRANGE_PART_ORES_BROKEN = ITEMS.register("strange_part_ores_broken", () -> new Item(ITEM_PROPERTIES));
 
+    public static final TagKey<Item> DEFENSE = ItemTags.create(new ResourceLocation(MOD_ID, "defense"));
+    public static final TagKey<Item> DEFENSE_ARMOR = ItemTags.create(new ResourceLocation(MOD_ID, "defense/armor"));
+    public static final TagKey<Item> DEFENSE_SHIELD = ItemTags.create(new ResourceLocation(MOD_ID, "defense/shield"));
+
+    public static final TagKey<Item> WEAPONS = ItemTags.create(new ResourceLocation(MOD_ID, "weapons"));
+    public static final TagKey<Item> WEAPONS_MELEE = ItemTags.create(new ResourceLocation(MOD_ID, "weapons/melee"));
+    public static final TagKey<Item> WEAPONS_RANGED = ItemTags.create(new ResourceLocation(MOD_ID, "weapons/ranged"));
+
+    public static final TagKey<Item> TOOLS = ItemTags.create(new ResourceLocation(MOD_ID, "tools"));
+
     // general
-    public static final String TAG_TIMES_USED = "times_used";
-    public static final String TAG_TIMES_REPAIRED = "times_repaired";
+    public static final String NBT_TIMES_USED = "times_used";
+    public static final String NBT_TIMES_REPAIRED = "times_repaired";
 
     // weapons
-    public static final String TAG_DAMAGE_DEALT = "damage_dealt";
-    public static final String TAG_KILLS = "kills";
-    public static final String TAG_CRITICAL_HITS = "critical_hits";
-    public static final String TAG_PLAYERS_KILLED = "players_killed";
-    public static final String TAG_MOBS_KILLED = "mobs_killed";
+    public static final String NBT_DAMAGE_DEALT = "damage_dealt";
+    public static final String NBT_KILLS = "kills";
+    public static final String NBT_CRITICAL_HITS = "critical_hits";
+    public static final String NBT_PLAYERS_KILLED = "players_killed";
+    public static final String NBT_MOBS_KILLED = "mobs_killed";
 
     // tools
-    public static final String TAG_BLOCKS_BROKEN = "blocks_broken";
-    public static final String TAG_ORES_BROKEN = "ores_broken";
-    public static final String TAG_BLOCKS_TILLED = "blocks_tilled";
+    public static final String NBT_BLOCKS_BROKEN = "blocks_broken";
+    public static final String NBT_ORES_BROKEN = "ores_broken";
+    public static final String NBT_BLOCKS_TILLED = "blocks_tilled";
 
     // armor
-    public static final String TAG_HITS_TAKEN = "hits_taken";
-    public static final String TAG_DAMAGE_ABSORBED = "damage_absorbed";
+    public static final String NBT_HITS_TAKEN = "hits_taken";
+    public static final String NBT_DAMAGE_ABSORBED = "damage_absorbed";
 
     // misc
 
@@ -67,16 +79,25 @@ public class Strange {
     // shield
     // flint and steel
     // shears
-    // also custom item types like tinkers
-    // TODO: should add a forge tag instead so other mods can add compat
     public static boolean isStrangifiable(Item item) {
-        return isWeapon(item) || isTool(item) || isArmor(item) ||
+        return isWeapon(item) || isToolTiered(item) || isArmor(item) ||
                 item instanceof ElytraItem ||
-                item instanceof ShieldItem ||
+                isShield(item) ||
                 item instanceof FishingRodItem ||
                 item instanceof ShearsItem ||
                 item instanceof BucketItem ||
                 item instanceof FlintAndSteelItem;
+    }
+
+
+    // TODO: move these to data gen
+
+    public static boolean isShield(Item item) {
+        return item instanceof ShieldItem;
+    }
+
+    public static boolean isWearable(Item item) {
+        return false;
     }
 
     public static boolean isArmor(Item item) {
@@ -84,11 +105,19 @@ public class Strange {
     }
 
     public static boolean isWeapon(Item item) {
-        return item instanceof SwordItem || item instanceof BowItem || item instanceof CrossbowItem || item instanceof TridentItem;
+        return isWeaponMelee(item) || isWeaponRanged(item);
     }
 
-    public static boolean isTool(Item item) {
-        return item instanceof TieredItem && !(item instanceof SwordItem);
+    public static boolean isWeaponMelee(Item item) {
+        return item instanceof SwordItem || item instanceof AxeItem || item instanceof TridentItem;
+    }
+
+    public static boolean isWeaponRanged(Item item) {
+        return item instanceof BowItem || item instanceof CrossbowItem || item instanceof TridentItem;
+    }
+
+    public static boolean isToolTiered(Item item) {
+        return item instanceof TieredItem;
     }
 
     // surely theres a better way to do this

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:stone_axe"
+  },
+  "addition": {
+    "item": "strange:strange_part_damage_dealt"
+  },
+  "result": {
+    "item": "minecraft:stone_axe"
+  }
+}

@@ -158,14 +158,14 @@ dependencies {
     // runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}") // Adds the full JEI mod as a runtime dependency
     // implementation fg.deobf("com.tterrag.registrate:Registrate:MC${mc_version}-${registrate_version}") // Adds registrate as a dependency
 
-    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:10.2.1.1005")
-
-    runtimeOnly fg.deobf("curse.maven:legendary-tooltips-532127:4035921")
-    runtimeOnly fg.deobf("curse.maven:iceberg-520110:4035917")
-    runtimeOnly fg.deobf("curse.maven:prism-lib-638111:3933410")
-
-    runtimeOnly fg.deobf("curse.maven:quark-243121:3840125")
-    runtimeOnly fg.deobf("curse.maven:autoreglib-250363:3642382")
+//    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:10.2.1.1005")
+//
+//    runtimeOnly fg.deobf("curse.maven:legendary-tooltips-532127:4035921")
+//    runtimeOnly fg.deobf("curse.maven:iceberg-520110:4035917")
+//    runtimeOnly fg.deobf("curse.maven:prism-lib-638111:3933410")
+//
+//    runtimeOnly fg.deobf("curse.maven:quark-243121:3840125")
+//    runtimeOnly fg.deobf("curse.maven:autoreglib-250363:3642382")
 
     // Examples using mod jars from ./libs
     // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
