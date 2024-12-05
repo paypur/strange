@@ -30,6 +30,10 @@ public class DataGen extends RecipeProvider {
         ForgeRegistries.ITEMS.getValues().stream()
                 .filter(Strange::isWeapon)
                 .forEach(item -> strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_DAMAGE_DEALT.get()));
+
+        ForgeRegistries.ITEMS.getValues().stream()
+                .filter(Strange::isTool)
+                .forEach(item -> strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_ORES_BROKEN.get()));
     }
 
     private void strangify(Consumer<FinishedRecipe> pFinishedRecipeConsumer, Item item) {

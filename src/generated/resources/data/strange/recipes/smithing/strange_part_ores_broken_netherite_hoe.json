@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:netherite_hoe"
+  },
+  "addition": {
+    "item": "strange:strange_part_ores_broken"
+  },
+  "result": {
+    "item": "minecraft:netherite_hoe"
+  }
+}

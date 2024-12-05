@@ -24,19 +24,31 @@ public class Strange {
 
     private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MOD_ID);
 
-    public static final RegistryObject<Item> STRANGIFIER = ITEMS.register("strangifier", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
-    public static final RegistryObject<Item> STRANGE_PART_DAMAGE_DEALT = ITEMS.register("strange_part_damage_dealt", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    private static final Item.Properties ITEM_PROPERTIES = new Item.Properties().rarity(Rarity.EPIC).tab(CreativeModeTab.TAB_MISC);
 
+    public static final RegistryObject<Item> STRANGIFIER = ITEMS.register("strangifier", () -> new Item(ITEM_PROPERTIES));
+    public static final RegistryObject<Item> STRANGE_PART_DAMAGE_DEALT = ITEMS.register("strange_part_damage_dealt", () -> new Item(ITEM_PROPERTIES));
+    public static final RegistryObject<Item> STRANGE_PART_ORES_BROKEN = ITEMS.register("strange_part_ores_broken", () -> new Item(ITEM_PROPERTIES));
+
+    // general
+    public static final String TAG_TIMES_USED = "times_used";
+    public static final String TAG_TIMES_REPAIRED = "times_repaired";
 
     // weapons
     public static final String TAG_DAMAGE_DEALT = "damage_dealt";
     public static final String TAG_KILLS = "kills";
+    public static final String TAG_CRITICAL_HITS = "critical_hits";
+    public static final String TAG_PLAYERS_KILLED = "players_killed";
+    public static final String TAG_MOBS_KILLED = "mobs_killed";
 
     // tools
     public static final String TAG_BLOCKS_BROKEN = "blocks_broken";
+    public static final String TAG_ORES_BROKEN = "ores_broken";
+    public static final String TAG_BLOCKS_TILLED = "blocks_tilled";
 
     // armor
     public static final String TAG_HITS_TAKEN = "hits_taken";
+    public static final String TAG_DAMAGE_ABSORBED = "damage_absorbed";
 
     // misc
 
@@ -53,10 +65,10 @@ public class Strange {
     // TODO: should also add
     // fishing rod
     // shield
-    // bucket
     // flint and steel
     // shears
     // also custom item types like tinkers
+    // TODO: should add a forge tag instead so other mods can add compat
     public static boolean isStrangifiable(Item item) {
         return isWeapon(item) || isTool(item) || isArmor(item) ||
                 item instanceof ElytraItem ||
@@ -79,18 +91,7 @@ public class Strange {
         return item instanceof TieredItem && !(item instanceof SwordItem);
     }
 
-    public static String rankAnnouncement(long n) {
-        String pre = rank(n - 1);
-        String post = rank(n);
-
-        if (!pre.equals(post)) {
-            // send chat message
-        }
-
-        return post;
-    }
-
-    // surely these a better way to do this
+    // surely theres a better way to do this
     public static String rank(long n) {
         if (n < 10) {
             return "Strange";
