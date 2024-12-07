@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:golden_axe"
+  },
+  "addition": {
+    "item": "strange:strange_part_times_used"
+  },
+  "result": {
+    "item": "minecraft:golden_axe"
+  }
+}

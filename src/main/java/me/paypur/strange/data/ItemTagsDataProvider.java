@@ -4,7 +4,7 @@ import me.paypur.strange.Strange;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
@@ -25,12 +25,12 @@ public class ItemTagsDataProvider extends ItemTagsProvider {
 
         final TagAppender<Item> WEAPONS_MELEE = this.tag(Strange.WEAPONS_MELEE);
         ForgeRegistries.ITEMS.getValues().stream()
-                .filter(Strange::isWeaponMelee)
+                .filter(ItemTypeUtil::isWeaponMelee)
                 .forEach(WEAPONS_MELEE::add);
 
         final TagAppender<Item> WEAPONS_RANGED = this.tag(Strange.WEAPONS_RANGED);
         ForgeRegistries.ITEMS.getValues().stream()
-                .filter(Strange::isWeaponRanged)
+                .filter(ItemTypeUtil::isWeaponRanged)
                 .forEach(WEAPONS_RANGED::add);
 
         this.tag(Strange.DEFENSE)
@@ -39,17 +39,17 @@ public class ItemTagsDataProvider extends ItemTagsProvider {
 
         final TagAppender<Item> DEFENSE_ARMOR = this.tag(Strange.DEFENSE_ARMOR);
         ForgeRegistries.ITEMS.getValues().stream()
-                .filter(Strange::isArmor)
+                .filter(ItemTypeUtil::isArmor)
                 .forEach(DEFENSE_ARMOR::add);
 
         final TagAppender<Item> DEFENSE_SHIELD = this.tag(Strange.DEFENSE_SHIELD);
         ForgeRegistries.ITEMS.getValues().stream()
-                .filter(Strange::isShield)
+                .filter(ItemTypeUtil::isShield)
                 .forEach(DEFENSE_SHIELD::add);
 
         final TagAppender<Item> TOOLS_TIERED = this.tag(Strange.TOOLS);
         ForgeRegistries.ITEMS.getValues().stream()
-                .filter(Strange::isToolTiered)
+                .filter(ItemTypeUtil::isToolTiered)
                 .forEach(TOOLS_TIERED::add);
     }
 

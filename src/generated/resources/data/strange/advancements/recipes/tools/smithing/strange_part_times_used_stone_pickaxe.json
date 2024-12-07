@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "strange:smithing/strange_part_times_used_stone_pickaxe"
+    ]
+  },
+  "criteria": {
+    "has_strange_part_times_used": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "strange:strange_part_times_used"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "strange:smithing/strange_part_times_used_stone_pickaxe"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_strange_part_times_used",
+      "has_the_recipe"
+    ]
+  ]
+}

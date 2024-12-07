@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:stone_shovel"
+  },
+  "addition": {
+    "item": "strange:strange_part_times_used"
+  },
+  "result": {
+    "item": "minecraft:stone_shovel"
+  }
+}

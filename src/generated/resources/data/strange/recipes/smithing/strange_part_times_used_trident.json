@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:trident"
+  },
+  "addition": {
+    "item": "strange:strange_part_times_used"
+  },
+  "result": {
+    "item": "minecraft:trident"
+  }
+}

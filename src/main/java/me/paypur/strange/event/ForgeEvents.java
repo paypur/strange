@@ -15,6 +15,7 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.util.List;
@@ -22,7 +23,7 @@ import java.util.List;
 public class ForgeEvents {
 
     // note: runs every tick
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.HIGH)
     void onTooltip(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
         CompoundTag tag = event.getItemStack().getTag();
@@ -34,16 +35,15 @@ public class ForgeEvents {
         CompoundTag strange = tag.getCompound(Strange.MOD_ID);
 
         List<Component> components = event.getToolTip();
-        components.add(TextComponent.EMPTY);
 
-        if (Strange.isWeapon(stack.getItem())) {
+        // Order does matter as some items have multiple primary tags
+        if (stack.is(Strange.WEAPONS)) {
             long kills = strange.getLong(Strange.NBT_KILLS);
             components.add((new TextComponent(String.format("%s - Kills: %d", Strange.rank(kills), kills)).withStyle(ChatFormatting.DARK_GRAY)));
-
-        } else if (Strange.isToolTiered(stack.getItem())) {
+        } else if (stack.is(Strange.TOOLS)) {
             long blocks = strange.getLong(Strange.NBT_BLOCKS_BROKEN);
             components.add((new TextComponent(String.format("%s - Blocks Broken: %d", Strange.rank(blocks), blocks)).withStyle(ChatFormatting.DARK_GRAY)));
-        } else if (Strange.isArmor(stack.getItem())) {
+        } else if (stack.is(Strange.DEFENSE)) {
             long hits = strange.getLong(Strange.NBT_HITS_TAKEN);
             components.add((new TextComponent(String.format("%s - Hits Taken: %d", Strange.rank(hits), hits)).withStyle(ChatFormatting.DARK_GRAY)));
         } else {
@@ -61,6 +61,11 @@ public class ForgeEvents {
             components.add((new TextComponent(String.format("Ores Broken: %d", ores)).withStyle(ChatFormatting.DARK_GRAY)));
         }
 
+        if (strange.contains(Strange.NBT_TIMES_USED)) {
+            long l = strange.getLong(Strange.NBT_TIMES_USED);
+            components.add((new TextComponent(String.format("Times Used: %d", l)).withStyle(ChatFormatting.DARK_GRAY)));
+        }
+
     }
 
     @SubscribeEvent
@@ -69,7 +74,7 @@ public class ForgeEvents {
             ItemStack stack = player.getMainHandItem();
             CompoundTag tag = stack.getTag();
 
-            if (!Strange.isWeapon(stack.getItem()) || tag == null || !tag.contains(Strange.MOD_ID)) {
+            if (!stack.is(Strange.WEAPONS) || tag == null || !tag.contains(Strange.MOD_ID)) {
                 return;
             }
 
@@ -87,7 +92,7 @@ public class ForgeEvents {
             ItemStack stack = player.getMainHandItem();
             CompoundTag tag = stack.getTag();
 
-            if (!Strange.isWeapon(stack.getItem()) || tag == null || !tag.contains(Strange.MOD_ID)) {
+            if (!stack.is(Strange.WEAPONS) || tag == null || !tag.contains(Strange.MOD_ID)) {
                 return;
             }
 
@@ -123,7 +128,7 @@ public class ForgeEvents {
         ItemStack stack = event.getPlayer().getMainHandItem();
         CompoundTag tag = stack.getTag();
 
-        if (tag == null || !Strange.isToolTiered(stack.getItem()) || !tag.contains(Strange.MOD_ID)) {
+        if (tag == null || !stack.is(Strange.TOOLS) || !tag.contains(Strange.MOD_ID)) {
             return;
         }
 
@@ -144,7 +149,7 @@ public class ForgeEvents {
             ItemStack stack = event.getEmptyBucket();
             CompoundTag tag = stack.getTag();
 
-            if (tag == null || !Strange.isToolTiered(stack.getItem()) || !tag.contains(Strange.MOD_ID)) {
+            if (tag == null || !stack.is(Strange.TOOLS) || !tag.contains(Strange.MOD_ID)) {
                 return;
             }
 

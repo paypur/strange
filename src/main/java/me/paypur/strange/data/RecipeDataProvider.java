@@ -23,15 +23,19 @@ public class RecipeDataProvider extends RecipeProvider {
     protected void buildCraftingRecipes(@NotNull Consumer<FinishedRecipe> pFinishedRecipeConsumer) {
         // TODO: maybe should save these results as they are used twice
         ForgeRegistries.ITEMS.getValues().stream()
-                .filter(Strange::isStrangifiable)
+                .filter(ItemTypeUtil::isStrangifiable)
                 .forEach(item -> strangify(pFinishedRecipeConsumer, item));
 
         ForgeRegistries.ITEMS.getValues().stream()
-                .filter(Strange::isWeapon)
+                .filter(ItemTypeUtil::isWeapon)
                 .forEach(item -> strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_DAMAGE_DEALT.get()));
 
         ForgeRegistries.ITEMS.getValues().stream()
-                .filter(Strange::isToolTiered)
+                .filter(Item::canBeDepleted)
+                .forEach(item -> strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_TIMES_USED.get()));
+
+        ForgeRegistries.ITEMS.getValues().stream()
+                .filter(ItemTypeUtil::isToolTiered)
                 .forEach(item -> strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_ORES_BROKEN.get()));
     }
 
@@ -49,6 +53,6 @@ public class RecipeDataProvider extends RecipeProvider {
 
     @Override
     public @NotNull String getName() {
-        return "Strange crafting recipes";
+        return "Strange recipes";
     }
 }

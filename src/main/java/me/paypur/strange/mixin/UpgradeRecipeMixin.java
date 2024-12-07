@@ -83,6 +83,29 @@ public abstract class UpgradeRecipeMixin implements Recipe<Container> {
             tag.put(Strange.NBT_ORES_BROKEN, strange);
 
             cir.setReturnValue(stack);
+        }  else if (add.equals(Strange.STRANGE_PART_TIMES_USED.get())) {
+            CompoundTag tag = stack.getTag();
+
+            if (tag == null) {
+                return;
+            }
+
+            if (!tag.contains(Strange.MOD_ID)) {
+                cir.setReturnValue(ItemStack.EMPTY);
+                return;
+            }
+
+            CompoundTag strange = tag.getCompound(Strange.MOD_ID);
+
+            if (tag.contains(Strange.NBT_TIMES_USED)) {
+                cir.setReturnValue(ItemStack.EMPTY);
+                return;
+            }
+
+            strange.putLong(Strange.NBT_TIMES_USED, 0);
+            tag.put(Strange.NBT_TIMES_USED, strange);
+
+            cir.setReturnValue(stack);
         }
     }
 

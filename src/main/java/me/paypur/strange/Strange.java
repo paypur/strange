@@ -30,6 +30,7 @@ public class Strange {
 
     public static final RegistryObject<Item> STRANGIFIER = ITEMS.register("strangifier", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> STRANGE_PART_DAMAGE_DEALT = ITEMS.register("strange_part_damage_dealt", () -> new Item(ITEM_PROPERTIES));
+    public static final RegistryObject<Item> STRANGE_PART_TIMES_USED = ITEMS.register("strange_part_times_used", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> STRANGE_PART_ORES_BROKEN = ITEMS.register("strange_part_ores_broken", () -> new Item(ITEM_PROPERTIES));
 
     public static final TagKey<Item> DEFENSE = ItemTags.create(new ResourceLocation(MOD_ID, "defense"));
@@ -40,6 +41,7 @@ public class Strange {
     public static final TagKey<Item> WEAPONS_MELEE = ItemTags.create(new ResourceLocation(MOD_ID, "weapons/melee"));
     public static final TagKey<Item> WEAPONS_RANGED = ItemTags.create(new ResourceLocation(MOD_ID, "weapons/ranged"));
 
+    // TODO: rename to breaking tools or something
     public static final TagKey<Item> TOOLS = ItemTags.create(new ResourceLocation(MOD_ID, "tools"));
 
     // general
@@ -72,52 +74,6 @@ public class Strange {
         mod.register(new ModEvents());
 
         ITEMS.register(mod);
-    }
-
-    // TODO: should also add
-    // fishing rod
-    // shield
-    // flint and steel
-    // shears
-    public static boolean isStrangifiable(Item item) {
-        return isWeapon(item) || isToolTiered(item) || isArmor(item) ||
-                item instanceof ElytraItem ||
-                isShield(item) ||
-                item instanceof FishingRodItem ||
-                item instanceof ShearsItem ||
-                item instanceof BucketItem ||
-                item instanceof FlintAndSteelItem;
-    }
-
-
-    // TODO: move these to data gen
-
-    public static boolean isShield(Item item) {
-        return item instanceof ShieldItem;
-    }
-
-    public static boolean isWearable(Item item) {
-        return false;
-    }
-
-    public static boolean isArmor(Item item) {
-        return item instanceof ArmorItem;
-    }
-
-    public static boolean isWeapon(Item item) {
-        return isWeaponMelee(item) || isWeaponRanged(item);
-    }
-
-    public static boolean isWeaponMelee(Item item) {
-        return item instanceof SwordItem || item instanceof AxeItem || item instanceof TridentItem;
-    }
-
-    public static boolean isWeaponRanged(Item item) {
-        return item instanceof BowItem || item instanceof CrossbowItem || item instanceof TridentItem;
-    }
-
-    public static boolean isToolTiered(Item item) {
-        return item instanceof TieredItem;
     }
 
     // surely theres a better way to do this
