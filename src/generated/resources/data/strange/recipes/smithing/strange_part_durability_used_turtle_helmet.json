@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:turtle_helmet"
+  },
+  "addition": {
+    "item": "strange:strange_part_durability_used"
+  },
+  "result": {
+    "item": "minecraft:turtle_helmet"
+  }
+}

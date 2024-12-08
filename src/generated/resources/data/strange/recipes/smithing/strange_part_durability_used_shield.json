@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:shield"
+  },
+  "addition": {
+    "item": "strange:strange_part_durability_used"
+  },
+  "result": {
+    "item": "minecraft:shield"
+  }
+}

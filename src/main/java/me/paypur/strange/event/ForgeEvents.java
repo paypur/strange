@@ -5,8 +5,9 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.OreBlock;
 import net.minecraft.world.phys.HitResult;
@@ -70,6 +71,11 @@ public class ForgeEvents {
             components.add((new TextComponent(String.format("Times Used: %d", l)).withStyle(ChatFormatting.DARK_GRAY)));
         }
 
+        if (strange.contains(Strange.NBT_DURABILITY_USED)) {
+            long l = strange.getLong(Strange.NBT_DURABILITY_USED);
+            components.add((new TextComponent(String.format("Durability Used: %d", l)).withStyle(ChatFormatting.DARK_GRAY)));
+        }
+
     }
 
     @SubscribeEvent
@@ -107,34 +113,12 @@ public class ForgeEvents {
     void onDamage(LivingDamageEvent event) {
         if (event.getSource().getEntity() instanceof Player player) {
             ItemStack stack = player.getMainHandItem();
-            CompoundTag tag = stack.getTag();
-
-            if (!stack.is(Strange.WEAPONS) || tag == null || !tag.contains(Strange.MOD_ID)) {
-                return;
-            }
-
-            CompoundTag strange = tag.getCompound(Strange.MOD_ID);
-            
-            if (!strange.contains(Strange.NBT_DAMAGE_DEALT)) {
-                return;
-            }
-
             float dealt = Math.min(event.getEntityLiving().getHealth(), event.getAmount());
-            double damage = strange.getDouble(Strange.NBT_DAMAGE_DEALT);
-
-            strange.putDouble(Strange.NBT_DAMAGE_DEALT, damage + dealt);
-        } else if (event.getEntityLiving() instanceof Player player) {
+            incrementDouble(stack, Strange.WEAPONS, Strange.NBT_DAMAGE_DEALT, dealt);
+        }
+        if (event.getEntityLiving() instanceof Player player) {
             for (ItemStack armor: player.getArmorSlots()) {
-                CompoundTag tag = armor.getTag();
-
-                if (!(armor.getItem() instanceof ArmorItem) || tag == null || !tag.contains(Strange.MOD_ID)) {
-                    continue;
-                }
-
-                CompoundTag strange = tag.getCompound(Strange.MOD_ID);
-
-                long hits = strange.getLong(Strange.NBT_HITS_TAKEN);
-                strange.putLong(Strange.NBT_HITS_TAKEN, hits + 1);
+                incrementLong(armor, Strange.DEFENSE_ARMOR, Strange.NBT_HITS_TAKEN);
             }
         }
 
@@ -154,6 +138,7 @@ public class ForgeEvents {
         long blocks = strange.getLong(Strange.NBT_BLOCKS_BROKEN);
         strange.putLong(Strange.NBT_BLOCKS_BROKEN, blocks + 1);
 
+        // TODO: change to a tag
         if (event.getState().getBlock() instanceof OreBlock) {
             long ores = strange.getLong(Strange.NBT_ORES_BROKEN);
             strange.putLong(Strange.NBT_ORES_BROKEN, ores + 1);
@@ -164,17 +149,38 @@ public class ForgeEvents {
     void onBucket(FillBucketEvent event) {
         if (event.getTarget().getType() != HitResult.Type.MISS) {
             ItemStack stack = event.getEmptyBucket();
-            CompoundTag tag = stack.getTag();
-
-            if (tag == null || !stack.is(Strange.TOOLS_TIERED) || !tag.contains(Strange.MOD_ID)) {
-                return;
-            }
-
-            CompoundTag strange = tag.getCompound(Strange.MOD_ID);
-
-            long used = strange.getLong(Strange.NBT_TIMES_USED);
-            strange.putLong(Strange.NBT_TIMES_USED, used + 1);
+            incrementLong(stack, Strange.TOOLS_TIERED, Strange.NBT_TIMES_USED);
         }
+    }
+
+    static public void incrementLong(ItemStack stack, TagKey<Item> tagKey, String nbtKey) {
+        incrementLong(stack, tagKey, nbtKey, 1);
+    }
+
+    static public void incrementLong(ItemStack stack, TagKey<Item> tagKey, String nbtKey, long l) {
+        CompoundTag tag = stack.getTag();
+
+        if (!stack.is(tagKey) || tag == null || !tag.contains(Strange.MOD_ID)) {
+            return;
+        }
+
+        CompoundTag strange = tag.getCompound(Strange.MOD_ID);
+
+        long value = strange.getLong(nbtKey);
+        strange.putLong(nbtKey, value + l);
+    }
+
+    static public void incrementDouble(ItemStack stack, TagKey<Item> tagKey, String nbtKey, double d) {
+        CompoundTag tag = stack.getTag();
+
+        if (!stack.is(tagKey) || tag == null || !tag.contains(Strange.MOD_ID)) {
+            return;
+        }
+
+        CompoundTag strange = tag.getCompound(Strange.MOD_ID);
+
+        double value = strange.getDouble(nbtKey);
+        strange.putDouble(nbtKey, value + d);
     }
 
 }

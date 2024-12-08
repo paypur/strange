@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:carrot_on_a_stick"
+  },
+  "addition": {
+    "item": "strange:strange_part_durability_used"
+  },
+  "result": {
+    "item": "minecraft:carrot_on_a_stick"
+  }
+}

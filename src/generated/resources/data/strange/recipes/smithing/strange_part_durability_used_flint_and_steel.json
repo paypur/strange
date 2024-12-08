@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:flint_and_steel"
+  },
+  "addition": {
+    "item": "strange:strange_part_durability_used"
+  },
+  "result": {
+    "item": "minecraft:flint_and_steel"
+  }
+}

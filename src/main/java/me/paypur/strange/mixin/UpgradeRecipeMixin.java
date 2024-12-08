@@ -48,6 +48,8 @@ public abstract class UpgradeRecipeMixin implements Recipe<Container> {
             addLong(stack, Strange.NBT_ORES_BROKEN, cir);
         }  else if (add.equals(Strange.STRANGE_PART_TIMES_USED.get())) {
             addLong(stack, Strange.NBT_TIMES_USED, cir);
+        } else if (add.equals(Strange.STRANGE_PART_DURABILITY_USED.get())) {
+            addLong(stack, Strange.NBT_DURABILITY_USED, cir);
         }
     }
 

@@ -54,6 +54,7 @@ public class Strange {
     public static final RegistryObject<Item> STRANGE_PART_DAMAGE_REDUCED = ITEMS.register("strange_part_damage_reduced", ITEM_SUPPLIER);
 
     // general
+    public static final RegistryObject<Item> STRANGE_PART_DURABILITY_USED = ITEMS.register("strange_part_durability_used", ITEM_SUPPLIER);
     public static final RegistryObject<Item> STRANGE_PART_TIMES_USED = ITEMS.register("strange_part_times_used", ITEM_SUPPLIER);
     public static final RegistryObject<Item> STRANGE_PART_TIMES_REPAIRED = ITEMS.register("strange_part_times_repaired", ITEM_SUPPLIER);
     public static final RegistryObject<Item> STRANGE_PART_TIMES_ENCHANTED = ITEMS.register("strange_part_times_enchanted", ITEM_SUPPLIER);
@@ -66,9 +67,13 @@ public class Strange {
     public static final TagKey<Item> WEAPONS_MELEE = ItemTags.create(new ResourceLocation(MOD_ID, "weapons/melee"));
     public static final TagKey<Item> WEAPONS_RANGED = ItemTags.create(new ResourceLocation(MOD_ID, "weapons/ranged"));
 
+    public static final TagKey<Item> TOOLS = ItemTags.create(new ResourceLocation(MOD_ID, "tools"));
     public static final TagKey<Item> TOOLS_TIERED = ItemTags.create(new ResourceLocation(MOD_ID, "tools_tiered"));
 
+    public static final TagKey<Item> ITEM_DAMAGEABLE = ItemTags.create(new ResourceLocation(MOD_ID, "item_damageable"));
+
     // general
+    public static final String NBT_DURABILITY_USED = "durability_used";
     public static final String NBT_TIMES_USED = "times_used";
     public static final String NBT_TIMES_REPAIRED = "times_repaired";
 

@@ -51,6 +51,11 @@ public class ItemTagsDataProvider extends ItemTagsProvider {
         ForgeRegistries.ITEMS.getValues().stream()
                 .filter(ItemTypeUtil::isToolTiered)
                 .forEach(TOOLS_TIERED::add);
+
+        final TagAppender<Item> ITEM_DAMAGEABLE = this.tag(Strange.ITEM_DAMAGEABLE);
+        ForgeRegistries.ITEMS.getValues().stream()
+                .filter(Item::canBeDepleted)
+                .forEach(ITEM_DAMAGEABLE::add);
     }
 
     @Override

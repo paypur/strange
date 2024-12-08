@@ -44,7 +44,7 @@ public class RecipeDataProvider extends RecipeProvider {
 
         ForgeRegistries.ITEMS.getValues().stream()
                 .filter(Item::canBeDepleted)
-                .forEach(item -> strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_TIMES_USED.get()));
+                .forEach(item -> strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_DURABILITY_USED.get()));
 
         ForgeRegistries.ITEMS.getValues().stream()
                 .filter(ItemTypeUtil::isToolTiered)
