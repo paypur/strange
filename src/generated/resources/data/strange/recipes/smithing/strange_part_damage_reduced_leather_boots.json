@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:leather_boots"
+  },
+  "addition": {
+    "item": "strange:strange_part_damage_reduced"
+  },
+  "result": {
+    "item": "minecraft:leather_boots"
+  }
+}

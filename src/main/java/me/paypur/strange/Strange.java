@@ -15,6 +15,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 
+import java.util.function.Supplier;
+
 import static me.paypur.strange.Strange.MOD_ID;
 
 @Mod(MOD_ID)
@@ -26,12 +28,35 @@ public class Strange {
     public static final int COLOR = 0xCF6A32;
 
     private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MOD_ID);
-    private static final Item.Properties ITEM_PROPERTIES = new Item.Properties().rarity(Rarity.EPIC).tab(CreativeModeTab.TAB_MISC);
+    // TODO: same instance might cause problems
+    private static final Supplier<? extends Item> ITEM_SUPPLIER = () -> new Item(new Item.Properties().rarity(Rarity.EPIC).tab(CreativeModeTab.TAB_MISC));
 
-    public static final RegistryObject<Item> STRANGIFIER = ITEMS.register("strangifier", () -> new Item(ITEM_PROPERTIES));
-    public static final RegistryObject<Item> STRANGE_PART_DAMAGE_DEALT = ITEMS.register("strange_part_damage_dealt", () -> new Item(ITEM_PROPERTIES));
-    public static final RegistryObject<Item> STRANGE_PART_TIMES_USED = ITEMS.register("strange_part_times_used", () -> new Item(ITEM_PROPERTIES));
-    public static final RegistryObject<Item> STRANGE_PART_ORES_BROKEN = ITEMS.register("strange_part_ores_broken", () -> new Item(ITEM_PROPERTIES));
+    public static final RegistryObject<Item> STRANGIFIER = ITEMS.register("strangifier", ITEM_SUPPLIER);
+
+    // weapons
+    // TODO: tech limitations for now
+//    public static final RegistryObject<Item> STRANGE_PART_CRITICAL_KIllS = ITEMS.register("strange_part_critical_kills", ITEM_SUPPLIER);
+
+    // TODO: not useable yet
+    public static final RegistryObject<Item> STRANGE_PART_KILLS_AIRBORNE = ITEMS.register("strange_part_kills_airborne", ITEM_SUPPLIER);
+    public static final RegistryObject<Item> STRANGE_PART_KILLS_UNDERWATER = ITEMS.register("strange_part_kills_underwater", ITEM_SUPPLIER);
+    public static final RegistryObject<Item> STRANGE_PART_KILLS_PLAYERS = ITEMS.register("strange_part_kills_players", ITEM_SUPPLIER);
+    public static final RegistryObject<Item> STRANGE_PART_KILLS_MOBS = ITEMS.register("strange_part_kills_mobs", ITEM_SUPPLIER);
+    public static final RegistryObject<Item> STRANGE_PART_KILLS_ONE_SHOT = ITEMS.register("strange_part_kills_one_shot", ITEM_SUPPLIER);
+
+    public static final RegistryObject<Item> STRANGE_PART_DAMAGE_DEALT = ITEMS.register("strange_part_damage_dealt", ITEM_SUPPLIER);
+
+    // tools
+    public static final RegistryObject<Item> STRANGE_PART_ORES_BROKEN = ITEMS.register("strange_part_ores_broken", ITEM_SUPPLIER);
+
+    // armor
+    // TODO: not useable yet
+    public static final RegistryObject<Item> STRANGE_PART_DAMAGE_REDUCED = ITEMS.register("strange_part_damage_reduced", ITEM_SUPPLIER);
+
+    // general
+    public static final RegistryObject<Item> STRANGE_PART_TIMES_USED = ITEMS.register("strange_part_times_used", ITEM_SUPPLIER);
+    public static final RegistryObject<Item> STRANGE_PART_TIMES_REPAIRED = ITEMS.register("strange_part_times_repaired", ITEM_SUPPLIER);
+    public static final RegistryObject<Item> STRANGE_PART_TIMES_ENCHANTED = ITEMS.register("strange_part_times_enchanted", ITEM_SUPPLIER);
 
     public static final TagKey<Item> DEFENSE = ItemTags.create(new ResourceLocation(MOD_ID, "defense"));
     public static final TagKey<Item> DEFENSE_ARMOR = ItemTags.create(new ResourceLocation(MOD_ID, "defense/armor"));
@@ -41,19 +66,22 @@ public class Strange {
     public static final TagKey<Item> WEAPONS_MELEE = ItemTags.create(new ResourceLocation(MOD_ID, "weapons/melee"));
     public static final TagKey<Item> WEAPONS_RANGED = ItemTags.create(new ResourceLocation(MOD_ID, "weapons/ranged"));
 
-    // TODO: rename to breaking tools or something
-    public static final TagKey<Item> TOOLS = ItemTags.create(new ResourceLocation(MOD_ID, "tools"));
+    public static final TagKey<Item> TOOLS_TIERED = ItemTags.create(new ResourceLocation(MOD_ID, "tools_tiered"));
 
     // general
     public static final String NBT_TIMES_USED = "times_used";
     public static final String NBT_TIMES_REPAIRED = "times_repaired";
 
     // weapons
-    public static final String NBT_DAMAGE_DEALT = "damage_dealt";
     public static final String NBT_KILLS = "kills";
-    public static final String NBT_CRITICAL_HITS = "critical_hits";
-    public static final String NBT_PLAYERS_KILLED = "players_killed";
-    public static final String NBT_MOBS_KILLED = "mobs_killed";
+//    public static final String NBT_CRITICAL_KIllS = "critical_hits";
+    public static final String NBT_KILLS_AIRBORNE = "kills_airborne";
+    public static final String NBT_KILLS_UNDERWATER = "kills_underwater";
+    public static final String NBT_KILLS_PLAYERS = "kills_players";
+    public static final String NBT_KILLS_MOBS = "kills_mobs";
+    public static final String NBT_KILLS_ONE_SHOT = "kills_one_shot";
+
+    public static final String NBT_DAMAGE_DEALT = "damage_dealt";
 
     // tools
     public static final String NBT_BLOCKS_BROKEN = "blocks_broken";

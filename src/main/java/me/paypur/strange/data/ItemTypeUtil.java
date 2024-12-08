@@ -4,7 +4,6 @@ import net.minecraft.world.item.*;
 
 public class ItemTypeUtil {
 
-
     // TODO: should also add
     // fishing rod
     // shield
@@ -19,8 +18,6 @@ public class ItemTypeUtil {
                 item instanceof BucketItem ||
                 item instanceof FlintAndSteelItem;
     }
-
-    // IForgeItem::isDamageable
 
     public static boolean isShield(Item item) {
         return item instanceof ShieldItem;

@@ -37,76 +37,57 @@ public abstract class UpgradeRecipeMixin implements Recipe<Container> {
             stack.setHoverName(stack.getHoverName().copy().withStyle(s -> s.withColor(Strange.COLOR).withItalic(false)));
 
             cir.setReturnValue(stack);
-        } else if (add.equals(Strange.STRANGE_PART_DAMAGE_DEALT.get())) {
-            CompoundTag tag = stack.getTag();
+            return;
+        }
 
-            if (tag == null) {
-                return;
-            }
-
-            if (!tag.contains(Strange.MOD_ID)) {
-                cir.setReturnValue(ItemStack.EMPTY);
-                return;
-            }
-
-            CompoundTag strange = tag.getCompound(Strange.MOD_ID);
-
-            if (tag.contains(Strange.NBT_DAMAGE_DEALT)) {
-                cir.setReturnValue(ItemStack.EMPTY);
-                return;
-            }
-
-            strange.putLong(Strange.NBT_DAMAGE_DEALT, 0);
-            tag.put(Strange.NBT_DAMAGE_DEALT, strange);
-
-            cir.setReturnValue(stack);
+        if (add.equals(Strange.STRANGE_PART_DAMAGE_DEALT.get())) {
+            addDouble(stack, Strange.NBT_DAMAGE_DEALT, cir);
+//        } else if (add.equals(Strange.STRANGE_PART_CRITICAL_KIllS.get())) {
+//            addLong(stack, Strange.NBT_CRITICAL_KIllS, cir);
         } else if (add.equals(Strange.STRANGE_PART_ORES_BROKEN.get())) {
-            CompoundTag tag = stack.getTag();
-
-            if (tag == null) {
-                return;
-            }
-
-            if (!tag.contains(Strange.MOD_ID)) {
-                cir.setReturnValue(ItemStack.EMPTY);
-                return;
-            }
-
-            CompoundTag strange = tag.getCompound(Strange.MOD_ID);
-
-            if (tag.contains(Strange.NBT_ORES_BROKEN)) {
-                cir.setReturnValue(ItemStack.EMPTY);
-                return;
-            }
-
-            strange.putLong(Strange.NBT_ORES_BROKEN, 0);
-            tag.put(Strange.NBT_ORES_BROKEN, strange);
-
-            cir.setReturnValue(stack);
+            addLong(stack, Strange.NBT_ORES_BROKEN, cir);
         }  else if (add.equals(Strange.STRANGE_PART_TIMES_USED.get())) {
-            CompoundTag tag = stack.getTag();
-
-            if (tag == null) {
-                return;
-            }
-
-            if (!tag.contains(Strange.MOD_ID)) {
-                cir.setReturnValue(ItemStack.EMPTY);
-                return;
-            }
-
-            CompoundTag strange = tag.getCompound(Strange.MOD_ID);
-
-            if (tag.contains(Strange.NBT_TIMES_USED)) {
-                cir.setReturnValue(ItemStack.EMPTY);
-                return;
-            }
-
-            strange.putLong(Strange.NBT_TIMES_USED, 0);
-            tag.put(Strange.NBT_TIMES_USED, strange);
-
-            cir.setReturnValue(stack);
+            addLong(stack, Strange.NBT_TIMES_USED, cir);
         }
     }
 
+    private void addLong(ItemStack stack, String nbt, CallbackInfoReturnable cir) {
+        CompoundTag tag = stack.getTag();
+
+        if (tag == null || !tag.contains(Strange.MOD_ID)) {
+            cir.setReturnValue(ItemStack.EMPTY);
+            return;
+        }
+
+        CompoundTag strange = tag.getCompound(Strange.MOD_ID);
+
+        if (strange.contains(nbt)) {
+            cir.setReturnValue(ItemStack.EMPTY);
+            return;
+        }
+
+        strange.putLong(nbt, 0);
+
+        cir.setReturnValue(stack);
+    }
+
+    private void addDouble(ItemStack stack, String nbt, CallbackInfoReturnable cir) {
+        CompoundTag tag = stack.getTag();
+
+        if (tag == null || !tag.contains(Strange.MOD_ID)) {
+            cir.setReturnValue(ItemStack.EMPTY);
+            return;
+        }
+
+        CompoundTag strange = tag.getCompound(Strange.MOD_ID);
+
+        if (strange.contains(nbt)) {
+            cir.setReturnValue(ItemStack.EMPTY);
+            return;
+        }
+
+        strange.putDouble(nbt, 0);
+
+        cir.setReturnValue(stack);
+    }
 }

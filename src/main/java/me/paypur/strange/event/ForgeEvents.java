@@ -26,21 +26,20 @@ public class ForgeEvents {
     @SubscribeEvent(priority = EventPriority.HIGH)
     void onTooltip(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
-        CompoundTag tag = event.getItemStack().getTag();
+        CompoundTag tag = stack.getTag();
 
         if (tag == null || !tag.contains(Strange.MOD_ID)) {
             return;
         }
 
         CompoundTag strange = tag.getCompound(Strange.MOD_ID);
-
         List<Component> components = event.getToolTip();
 
         // Order does matter as some items have multiple primary tags
         if (stack.is(Strange.WEAPONS)) {
             long kills = strange.getLong(Strange.NBT_KILLS);
             components.add((new TextComponent(String.format("%s - Kills: %d", Strange.rank(kills), kills)).withStyle(ChatFormatting.DARK_GRAY)));
-        } else if (stack.is(Strange.TOOLS)) {
+        } else if (stack.is(Strange.TOOLS_TIERED)) {
             long blocks = strange.getLong(Strange.NBT_BLOCKS_BROKEN);
             components.add((new TextComponent(String.format("%s - Blocks Broken: %d", Strange.rank(blocks), blocks)).withStyle(ChatFormatting.DARK_GRAY)));
         } else if (stack.is(Strange.DEFENSE)) {
@@ -55,6 +54,11 @@ public class ForgeEvents {
             double damage = strange.getDouble(Strange.NBT_DAMAGE_DEALT);
             components.add((new TextComponent(String.format("Damage Dealt: %.2f", damage)).withStyle(ChatFormatting.DARK_GRAY)));
         }
+
+//        if (strange.contains(Strange.NBT_CRITICAL_KIllS)) {
+//            long critKills = strange.getLong(Strange.NBT_CRITICAL_KIllS);
+//            components.add((new TextComponent(String.format("Critical Kills: %d", critKills)).withStyle(ChatFormatting.DARK_GRAY)));
+//        }
 
         if (strange.contains(Strange.NBT_ORES_BROKEN)) {
             long ores = strange.getLong(Strange.NBT_ORES_BROKEN);
@@ -82,6 +86,19 @@ public class ForgeEvents {
 
             long kills = strange.getLong(Strange.NBT_KILLS);
             strange.putLong(Strange.NBT_KILLS, kills + 1);
+
+            // Crit check from Player.attack()
+            // pTarget instanceof LivingEntity is implied to be true
+            // TODO: the attackStrengthScale is set to 0 before this event is called, so it doesn't work
+//            boolean isCrit = player.getAttackStrengthScale(0.5F) > 0.9F && player.fallDistance > 0.0F &&
+//                    !player.isOnGround() && !player.onClimbable() &&
+//                    !player.isInWater() && !player.hasEffect(MobEffects.BLINDNESS) &&
+//                    !player.isPassenger() && !player.isSprinting();
+//
+//            if (strange.contains(Strange.NBT_CRITICAL_KIllS) && isCrit) {
+//                long critKills = strange.getLong(Strange.NBT_CRITICAL_KIllS);
+//                strange.putLong(Strange.NBT_CRITICAL_KIllS, critKills + 1);
+//            }
         }
     }
 
@@ -128,7 +145,7 @@ public class ForgeEvents {
         ItemStack stack = event.getPlayer().getMainHandItem();
         CompoundTag tag = stack.getTag();
 
-        if (tag == null || !stack.is(Strange.TOOLS) || !tag.contains(Strange.MOD_ID)) {
+        if (tag == null || !stack.is(Strange.TOOLS_TIERED) || !tag.contains(Strange.MOD_ID)) {
             return;
         }
 
@@ -149,7 +166,7 @@ public class ForgeEvents {
             ItemStack stack = event.getEmptyBucket();
             CompoundTag tag = stack.getTag();
 
-            if (tag == null || !stack.is(Strange.TOOLS) || !tag.contains(Strange.MOD_ID)) {
+            if (tag == null || !stack.is(Strange.TOOLS_TIERED) || !tag.contains(Strange.MOD_ID)) {
                 return;
             }
 

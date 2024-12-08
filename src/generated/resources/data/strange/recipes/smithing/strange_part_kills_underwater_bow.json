@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:bow"
+  },
+  "addition": {
+    "item": "strange:strange_part_kills_underwater"
+  },
+  "result": {
+    "item": "minecraft:bow"
+  }
+}

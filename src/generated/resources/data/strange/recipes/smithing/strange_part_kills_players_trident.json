@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:trident"
+  },
+  "addition": {
+    "item": "strange:strange_part_kills_players"
+  },
+  "result": {
+    "item": "minecraft:trident"
+  }
+}

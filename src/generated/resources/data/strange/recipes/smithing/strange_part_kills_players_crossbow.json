@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:crossbow"
+  },
+  "addition": {
+    "item": "strange:strange_part_kills_players"
+  },
+  "result": {
+    "item": "minecraft:crossbow"
+  }
+}

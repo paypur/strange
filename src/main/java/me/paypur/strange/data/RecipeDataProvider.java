@@ -28,7 +28,19 @@ public class RecipeDataProvider extends RecipeProvider {
 
         ForgeRegistries.ITEMS.getValues().stream()
                 .filter(ItemTypeUtil::isWeapon)
-                .forEach(item -> strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_DAMAGE_DEALT.get()));
+                .forEach(item -> {
+//                    strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_CRITICAL_KIllS.get());
+                    strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_KILLS_AIRBORNE.get());
+                    strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_KILLS_UNDERWATER.get());
+                    strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_KILLS_PLAYERS.get());
+                    strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_KILLS_MOBS.get());
+                    strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_KILLS_ONE_SHOT.get());
+                    strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_DAMAGE_DEALT.get());
+                });
+
+        ForgeRegistries.ITEMS.getValues().stream()
+                .filter(ItemTypeUtil::isArmor)
+                .forEach(item -> strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_DAMAGE_REDUCED.get()));
 
         ForgeRegistries.ITEMS.getValues().stream()
                 .filter(Item::canBeDepleted)
