@@ -1,7 +1,6 @@
-package me.paypur.strange.items;
+package me.paypur.strange.item;
 
 import me.paypur.strange.Strange;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.CreativeModeTab;
@@ -10,22 +9,23 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import javax.annotation.Nullable;
+import java.util.List;
+
 public abstract class StrangePart extends Item {
 
-    protected final String NBT_KEY;
-    // TODO: replace with translation key
-    protected final String DESC_KEY;
+    protected static final String TRANSLATION_PREFIX = "strange.part.";
     protected final TagKey<Item> TAG_KEY;
+    protected final String NBT_KEY;
 
-    public StrangePart(String nbtKey, String descKey, TagKey<Item> tagKey) {
+    public StrangePart(@Nullable String nbtKey, @Nullable TagKey<Item> tagKey) {
         super(new Item.Properties().rarity(Rarity.EPIC).tab(CreativeModeTab.TAB_MISC));
         Strange.STRANGE_PART_MAP.put(nbtKey, this);
         this.NBT_KEY = nbtKey;
-        this.DESC_KEY = descKey;
         this.TAG_KEY = tagKey;
     }
 
-    public abstract Component readTag(CompoundTag strange);
+    public abstract void appendComponent(ItemStack stack, List<Component> components);
 
     public abstract void createTag(ItemStack stack, CallbackInfoReturnable<ItemStack> cir);
 

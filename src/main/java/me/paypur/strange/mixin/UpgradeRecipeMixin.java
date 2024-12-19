@@ -1,8 +1,5 @@
 package me.paypur.strange.mixin;
 
-import me.paypur.strange.Strange;
-import me.paypur.strange.items.StrangePart;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -22,25 +19,12 @@ public abstract class UpgradeRecipeMixin implements Recipe<Container> {
     void strange(Container pInv, CallbackInfoReturnable<ItemStack> cir, ItemStack stack){
         Item add = pInv.getItem(1).getItem();
 
-        if (add.equals(Strange.STRANGIFIER.get())) {
-            if (stack.getTag() == null) {
-                // TODO: storing the tag as a var causes problems if updated later
-                stack.setTag(new CompoundTag());
-            }
-
-            if (stack.getTag().contains(Strange.MOD_ID)) {
-                cir.setReturnValue(ItemStack.EMPTY);
-                return;
-            }
-
-            stack.getTag().put(Strange.MOD_ID, new CompoundTag());
-
-            stack.setHoverName(stack.getHoverName().copy().withStyle(s -> s.withColor(Strange.COLOR).withItalic(false)));
-
-            cir.setReturnValue(stack);
-        } else if (add instanceof StrangePart part) {
-            part.createTag(stack, cir);
-        }
+//        if (add.equals(Strange.STRANGIFIER.get())) {
+//            // TODO
+//
+//        } if (add instanceof StrangePart part) {
+//            part.createTag(stack, cir);
+//        }
 
     }
 

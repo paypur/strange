@@ -1,4 +1,4 @@
-package me.paypur.strange.items;
+package me.paypur.strange.item;
 
 import me.paypur.strange.Strange;
 import net.minecraft.ChatFormatting;
@@ -8,18 +8,25 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.common.ForgeI18n;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.List;
 
 public class StrangePartLong extends StrangePart {
 
-    public StrangePartLong(String nbtKey, String descKey, TagKey<Item> tagKey) {
-        super(nbtKey, descKey, tagKey);
+    public StrangePartLong(String nbtKey, TagKey<Item> tagKey) {
+        super(nbtKey, tagKey);
     }
 
     @Override
-    public Component readTag(CompoundTag strange) {
-        return new TextComponent(String.format("%s%d", DESC_KEY, strange.getLong(NBT_KEY)))
-                .withStyle(ChatFormatting.DARK_GRAY);
+    public void appendComponent(ItemStack stack, List<Component> components) {
+        CompoundTag tag = stack.getTag();
+        if (tag != null && tag.contains(Strange.MOD_ID)) {
+            components.add(new TextComponent("    " + ForgeI18n.getPattern(TRANSLATION_PREFIX + NBT_KEY) +
+                tag.getCompound(Strange.MOD_ID).getLong(NBT_KEY))
+                .withStyle(ChatFormatting.DARK_GRAY));
+        }
     }
 
     @Override
@@ -46,14 +53,10 @@ public class StrangePartLong extends StrangePart {
     @Override
     public void incrementTag(ItemStack stack, Number num) {
         CompoundTag tag = stack.getTag();
-
-        if (tag == null || !stack.is(TAG_KEY) || !tag.contains(Strange.MOD_ID)) {
-            return;
+        if (tag != null && stack.is(TAG_KEY) && tag.contains(Strange.MOD_ID)) {
+            CompoundTag strange = tag.getCompound(Strange.MOD_ID);
+            strange.putLong(NBT_KEY, strange.getLong(NBT_KEY) + num.longValue());
         }
-
-        CompoundTag strange = tag.getCompound(Strange.MOD_ID);
-
-        strange.putLong(NBT_KEY, strange.getLong(NBT_KEY) + num.longValue());
     }
 
 }

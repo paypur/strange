@@ -1,0 +1,15 @@
+{
+    "strange.part.damage_dealt": "Damage Dealt: ",
+    "strange.part.kills": "Kills: ",
+    "strange.part.kills_airborne": "Air-shot Kills: ",
+    "strange.part.kills_underwater:": "Underwater Kills: ",
+    "strange.part.kills_mobs": "Mobs Killed: ",
+    "strange.part.kills_players": "Players Killed: ",
+    "strange.part.kills_one_shot": "One-Shot Kills: ",
+    "strange.part.blocks_broken": "Blocks Broken: ",
+    "strange.part.ores_broken": "Ores Broken: ",
+    "strange.part.damage_reduced": "Damage Reduced: ",
+    "strange.part.damage_blocked": "Damage Blocked: ",
+    "strange.part.durability_used": "Durability Used: ",
+    "strange.part.times_used": "Times Used: "
+}

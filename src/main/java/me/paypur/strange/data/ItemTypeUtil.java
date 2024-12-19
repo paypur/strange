@@ -4,18 +4,14 @@ import net.minecraft.world.item.*;
 
 public class ItemTypeUtil {
 
-    // TODO: should also add
-    // fishing rod
-    // shield
-    // flint and steel
-    // shears
     public static boolean isStrangifiable(Item item) {
         return isWeapon(item) || isToolTiered(item) || isArmor(item) ||
                 item instanceof ElytraItem ||
                 isShield(item) ||
                 item instanceof FishingRodItem ||
                 item instanceof ShearsItem ||
-                item instanceof BucketItem ||
+    // TODO: idk if i want to keep this, only non damageable
+//                item instanceof BucketItem ||
                 item instanceof FlintAndSteelItem;
     }
 
