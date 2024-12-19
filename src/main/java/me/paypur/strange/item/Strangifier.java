@@ -61,6 +61,7 @@ public class Strangifier extends StrangePart {
     }
 
     public String getNBTKey(ItemStack stack) {
+        // TODO: map to a strange part instead so i can handle doubles and longs
         if (stack.is(Strange.WEAPONS)) {
             return "kills";
         } else if (stack.is(Strange.TOOLS_TIERED)) {

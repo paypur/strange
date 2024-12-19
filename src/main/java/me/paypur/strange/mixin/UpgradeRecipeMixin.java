@@ -1,5 +1,6 @@
 package me.paypur.strange.mixin;
 
+import me.paypur.strange.item.StrangePart;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -16,16 +17,11 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 public abstract class UpgradeRecipeMixin implements Recipe<Container> {
 
     @Inject(method = "assemble", at = @At(value = "RETURN"), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
-    void strange(Container pInv, CallbackInfoReturnable<ItemStack> cir, ItemStack stack){
+    void assemble(Container pInv, CallbackInfoReturnable<ItemStack> cir, ItemStack stack) {
         Item add = pInv.getItem(1).getItem();
-
-//        if (add.equals(Strange.STRANGIFIER.get())) {
-//            // TODO
-//
-//        } if (add instanceof StrangePart part) {
-//            part.createTag(stack, cir);
-//        }
-
+        if (add instanceof StrangePart part) {
+            part.createTag(stack, cir);
+        }
     }
 
 }

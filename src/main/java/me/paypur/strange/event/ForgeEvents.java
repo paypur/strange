@@ -4,12 +4,17 @@ import me.paypur.strange.Strange;
 import me.paypur.strange.item.StrangePart;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.damagesource.CombatRules;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.OreBlock;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.ShieldBlockEvent;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.world.BlockEvent;
@@ -86,19 +91,6 @@ public class ForgeEvents {
             float dealt = Math.min(event.getEntityLiving().getHealth(), event.getAmount());
             Strange.STRANGE_PART_DAMAGE_DEALT.get().incrementTag(stack, dealt);
         }
-//        if (event.getEntityLiving() instanceof Player player) {
-//            DamageSource source = event.getSource();
-//            float amount = event.getAmount();
-//            if (!source.isBypassArmor()) {
-//                double reduction = amount - CombatRules.getDamageAfterAbsorb(amount, (float) player.getArmorValue(), (float) player.getAttributeValue(Attributes.ARMOR_TOUGHNESS));
-//                for (ItemStack stack: player.getArmorSlots()) {
-//                    if (stack.getItem() instanceof ArmorItem armor) {
-//                        // This will assume damage reduction is linear, which it isn't but whatever
-//                        incrementDouble(stack, Strange.DEFENSE_ARMOR, Strange.NBT_DAMAGE_ABSORBED, reduction * armor.getDefense() / player.getArmorValue());
-//                    }
-//                }
-//            }
-
     }
 
     @SubscribeEvent
@@ -110,6 +102,11 @@ public class ForgeEvents {
         if (event.getState().getBlock() instanceof OreBlock) {
             Strange.STRANGE_PART_ORES_BROKEN.get().incrementTag(stack);
         }
+    }
+
+    @SubscribeEvent
+    void onBlock(ShieldBlockEvent event) {
+        event.getOriginalBlockedDamage();
     }
 
     @SubscribeEvent
