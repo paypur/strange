@@ -4,11 +4,7 @@ import me.paypur.strange.Strange;
 import me.paypur.strange.item.StrangePart;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.damagesource.CombatRules;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.OreBlock;
 import net.minecraft.world.phys.HitResult;
@@ -58,13 +54,11 @@ public class ForgeEvents {
         if (event.getSource().getEntity() instanceof Player player) {
             Strange.STRANGE_PART_KILLS.get().incrementTag(player.getMainHandItem());
 
-
-            // TODO: untested
-            if (event.getEntityLiving().isFallFlying()) {
+            if (!event.getEntityLiving().isOnGround()) {
                 Strange.STRANGE_PART_KILLS_AIRBORNE.get().incrementTag(player.getMainHandItem());
             }
 
-            if (event.getEntityLiving().isUnderWater()) {
+            if (player.isUnderWater()) {
                 Strange.STRANGE_PART_KILLS_UNDERWATER.get().incrementTag(player.getMainHandItem());
             }
 
@@ -106,7 +100,11 @@ public class ForgeEvents {
 
     @SubscribeEvent
     void onBlock(ShieldBlockEvent event) {
-        event.getOriginalBlockedDamage();
+        if (event.getEntityLiving() instanceof Player player) {
+            if (player.getMainHandItem().is(Strange.DEFENSE_SHIELD)) {
+                Strange.STRANGE_PART_DAMAGE_BLOCKED.get().incrementTag(player.getMainHandItem(), event.getOriginalBlockedDamage());
+            }
+        }
     }
 
     @SubscribeEvent

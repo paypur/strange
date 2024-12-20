@@ -15,17 +15,21 @@ public class ItemTypeUtil {
                 item instanceof FlintAndSteelItem;
     }
 
-    public static boolean isShield(Item item) {
-        return item instanceof ShieldItem;
-    }
-
     // TODO
     public static boolean isWearable(Item item) {
         return false;
     }
 
+    public static boolean isDefense(Item item) {
+        return isArmor(item) || isShield(item);
+    }
+
     public static boolean isArmor(Item item) {
         return item instanceof ArmorItem;
+    }
+
+    public static boolean isShield(Item item) {
+        return item instanceof ShieldItem;
     }
 
     public static boolean isWeapon(Item item) {

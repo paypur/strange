@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:netherite_axe"
+  },
+  "addition": {
+    "item": "strange:strange_part_blocks_broken"
+  },
+  "result": {
+    "item": "minecraft:netherite_axe"
+  }
+}

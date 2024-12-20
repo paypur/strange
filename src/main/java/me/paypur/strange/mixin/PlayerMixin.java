@@ -44,7 +44,7 @@ public abstract class PlayerMixin {
             for (ItemStack stack : ((Player) (Object) this).getArmorSlots()) {
                 if (stack.getItem() instanceof ArmorItem armor) {
                     // This will assume damage reduction is linear, which it isn't but whatever close enough
-                    Strange.STRANGE_PART_DAMAGE_REDUCED.get().incrementTag(stack, reduction * armor.getDefense() / totalDefense);
+                    Strange.STRANGE_PART_DAMAGE_BLOCKED.get().incrementTag(stack, reduction * armor.getDefense() / totalDefense);
                 }
             }
         }

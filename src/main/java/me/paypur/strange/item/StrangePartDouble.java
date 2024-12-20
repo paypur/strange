@@ -55,7 +55,9 @@ public class StrangePartDouble extends StrangePart {
         CompoundTag tag = stack.getTag();
         if (tag != null && stack.is(TAG_KEY) && tag.contains(Strange.MOD_ID)) {
             CompoundTag strange = tag.getCompound(Strange.MOD_ID);
-            strange.putDouble(NBT_KEY, strange.getDouble(NBT_KEY) + num.doubleValue());
+            if (strange.contains(NBT_KEY)) {
+                strange.putDouble(NBT_KEY, strange.getDouble(NBT_KEY) + num.doubleValue());
+            }
         }
     }
 

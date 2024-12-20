@@ -29,18 +29,18 @@ public class RecipeDataProvider extends RecipeProvider {
         ForgeRegistries.ITEMS.getValues().stream()
                 .filter(ItemTypeUtil::isWeapon)
                 .forEach(item -> {
-//                    strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_CRITICAL_KIllS.get());
+                    strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_KILLS.get());
                     strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_KILLS_AIRBORNE.get());
                     strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_KILLS_UNDERWATER.get());
                     strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_KILLS_PLAYERS.get());
                     strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_KILLS_MOBS.get());
-                    strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_KILLS_ONE_SHOT.get());
+//                    strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_KILLS_ONE_SHOT.get());
                     strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_DAMAGE_DEALT.get());
                 });
 
         ForgeRegistries.ITEMS.getValues().stream()
-                .filter(ItemTypeUtil::isArmor)
-                .forEach(item -> strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_DAMAGE_REDUCED.get()));
+                .filter(ItemTypeUtil::isDefense)
+                .forEach(item -> strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_DAMAGE_BLOCKED.get()));
 
         ForgeRegistries.ITEMS.getValues().stream()
                 .filter(Item::canBeDepleted)
@@ -48,7 +48,10 @@ public class RecipeDataProvider extends RecipeProvider {
 
         ForgeRegistries.ITEMS.getValues().stream()
                 .filter(ItemTypeUtil::isToolTiered)
-                .forEach(item -> strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_ORES_BROKEN.get()));
+                .forEach(item -> {
+                    strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_BLOCKS_BROKEN.get());
+                    strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_ORES_BROKEN.get());
+                });
     }
 
     private void strangify(Consumer<FinishedRecipe> pFinishedRecipeConsumer, Item item) {

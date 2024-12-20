@@ -54,7 +54,7 @@ public class Strange {
 
     // weapons
     // TODO: tech limitations for now
-//    public static final RegistryObject<Item> STRANGE_PART_CRITICAL_KIllS = ITEMS.register("strange_part_critical_kills", ITEM_SUPPLIER);
+//    public static final RegistryObject<Item> STRANGE_PART_CRITICAL_KILLS = ITEMS.register("strange_part_critical_kills", ITEM_SUPPLIER);
 
     public static final RegistryObject<StrangePart> STRANGE_PART_ACCURACY = ITEMS.register("strange_part_accuracy", () -> new StrangePartDouble("accuracy", WEAPONS));
 
@@ -63,8 +63,10 @@ public class Strange {
     public static final RegistryObject<StrangePart> STRANGE_PART_KILLS_UNDERWATER = ITEMS.register("strange_part_kills_underwater", () -> new StrangePartLong("kills_underwater", WEAPONS));
     public static final RegistryObject<StrangePart> STRANGE_PART_KILLS_MOBS = ITEMS.register("strange_part_kills_mobs", () -> new StrangePartLong("kills_mobs", WEAPONS));
     public static final RegistryObject<StrangePart> STRANGE_PART_KILLS_PLAYERS = ITEMS.register("strange_part_kills_players", () -> new StrangePartLong("kills_players", WEAPONS));
-    // TODO: bosses killed, how to differentiate a boss?
     public static final RegistryObject<StrangePart> STRANGE_PART_KILLS_ONE_SHOT = ITEMS.register("strange_part_kills_one_shot", () -> new StrangePartLong("kills_one_shot", WEAPONS));
+    // TODO: bosses killed, how to differentiate a boss?
+    public static final RegistryObject<StrangePart> STRANGE_PART_KILLS_BOSSES = ITEMS.register("strange_part_kills_bosses", () -> new StrangePartLong("kills_bosses", WEAPONS));
+    // TODO: maybe also do every vanilla mob
 
     public static final RegistryObject<StrangePart> STRANGE_PART_DAMAGE_DEALT = ITEMS.register("strange_part_damage_dealt", () -> new StrangePartDouble("damage_dealt", WEAPONS));
 
@@ -74,14 +76,14 @@ public class Strange {
     public static final RegistryObject<StrangePart> STRANGE_PART_BLOCKS_TILLED = ITEMS.register("strange_part_blocks_tilled", () -> new StrangePartLong("blocks_tilled", TOOLS_HOE));
 
     // armor
-    public static final RegistryObject<StrangePart> STRANGE_PART_DAMAGE_REDUCED = ITEMS.register("strange_part_damage_reduced", () -> new StrangePartDouble("damage_reduced", DEFENSE_ARMOR));
-    public static final RegistryObject<StrangePart> STRANGE_PART_DAMAGE_BLOCKED = ITEMS.register("strange_part_damage_blocked", () -> new StrangePartDouble("damage_blocked", DEFENSE_ARMOR));
+//    public static final RegistryObject<StrangePart> STRANGE_PART_DAMAGE_REDUCED = ITEMS.register("strange_part_damage_reduced", () -> new StrangePartDouble("damage_reduced", DEFENSE_ARMOR));
+    public static final RegistryObject<StrangePart> STRANGE_PART_DAMAGE_BLOCKED = ITEMS.register("strange_part_damage_blocked", () -> new StrangePartDouble("damage_blocked", DEFENSE));
 
     // general
     public static final RegistryObject<StrangePart> STRANGE_PART_DURABILITY_USED = ITEMS.register("strange_part_durability_used", () -> new StrangePartLong("durability_used", ITEM_DAMAGEABLE));
     public static final RegistryObject<StrangePart> STRANGE_PART_TIMES_USED = ITEMS.register("strange_part_times_used", () -> new StrangePartLong("times_used", ITEM_DAMAGEABLE));
-//    public static final RegistryObject<Item> STRANGE_PART_TIMES_REPAIRED = ITEMS.register("times_repaired", ITEM_SUPPLIER);
-//    public static final RegistryObject<Item> STRANGE_PART_TIMES_ENCHANTED = ITEMS.register("times_enchanted", ITEM_SUPPLIER);
+    public static final RegistryObject<StrangePart> STRANGE_PART_TIMES_REPAIRED = ITEMS.register("strange_part_times_repaired", () -> new StrangePartLong("times_repaired", ITEM_DAMAGEABLE));
+    public static final RegistryObject<StrangePart> STRANGE_PART_TIMES_ENCHANTED = ITEMS.register("strange_part_times_enchanted", () -> new StrangePartLong("times_enchanted", ITEM_DAMAGEABLE));
 
     public Strange() {
         IEventBus forge = MinecraftForge.EVENT_BUS;

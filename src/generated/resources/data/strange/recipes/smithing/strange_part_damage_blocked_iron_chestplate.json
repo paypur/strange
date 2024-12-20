@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:iron_chestplate"
+  },
+  "addition": {
+    "item": "strange:strange_part_damage_blocked"
+  },
+  "result": {
+    "item": "minecraft:iron_chestplate"
+  }
+}

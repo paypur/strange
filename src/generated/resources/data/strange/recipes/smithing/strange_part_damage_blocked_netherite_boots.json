@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:netherite_boots"
+  },
+  "addition": {
+    "item": "strange:strange_part_damage_blocked"
+  },
+  "result": {
+    "item": "minecraft:netherite_boots"
+  }
+}

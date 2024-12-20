@@ -55,7 +55,9 @@ public class StrangePartLong extends StrangePart {
         CompoundTag tag = stack.getTag();
         if (tag != null && stack.is(TAG_KEY) && tag.contains(Strange.MOD_ID)) {
             CompoundTag strange = tag.getCompound(Strange.MOD_ID);
-            strange.putLong(NBT_KEY, strange.getLong(NBT_KEY) + num.longValue());
+            if (strange.contains(NBT_KEY)) {
+                strange.putLong(NBT_KEY, strange.getLong(NBT_KEY) + num.longValue());
+            }
         }
     }
 
