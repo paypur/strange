@@ -6,8 +6,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.OreBlock;
 import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.ShieldBlockEvent;
@@ -52,14 +52,15 @@ public class ForgeEvents {
     @SubscribeEvent
     void onKill(LivingDeathEvent event) {
         if (event.getSource().getEntity() instanceof Player player) {
-            Strange.STRANGE_PART_KILLS.get().incrementTag(player.getMainHandItem());
+            ItemStack stack = player.getMainHandItem();
+            Strange.STRANGE_PART_KILLS.get().incrementTag(stack);
 
             if (!event.getEntityLiving().isOnGround()) {
-                Strange.STRANGE_PART_KILLS_AIRBORNE.get().incrementTag(player.getMainHandItem());
+                Strange.STRANGE_PART_KILLS_AIRBORNE.get().incrementTag(stack);
             }
 
             if (player.isUnderWater()) {
-                Strange.STRANGE_PART_KILLS_UNDERWATER.get().incrementTag(player.getMainHandItem());
+                Strange.STRANGE_PART_KILLS_UNDERWATER.get().incrementTag(stack);
             }
 
             // Crit check from Player.attack()
@@ -78,7 +79,7 @@ public class ForgeEvents {
     }
 
     @SubscribeEvent
-    // TODO: maybe use AttackEntityEvent instead
+    // maybe use AttackEntityEvent instead
     void onDamage(LivingDamageEvent event) {
         if (event.getSource().getEntity() instanceof Player player) {
             ItemStack stack = player.getMainHandItem();
@@ -92,8 +93,7 @@ public class ForgeEvents {
         ItemStack stack = event.getPlayer().getMainHandItem();
         Strange.STRANGE_PART_BLOCKS_BROKEN.get().incrementTag(stack);
 
-        // TODO: change to a tag
-        if (event.getState().getBlock() instanceof OreBlock) {
+        if (event.getState().getTags().anyMatch(t -> t.equals(Tags.Blocks.ORES))) {
             Strange.STRANGE_PART_ORES_BROKEN.get().incrementTag(stack);
         }
     }
@@ -103,6 +103,8 @@ public class ForgeEvents {
         if (event.getEntityLiving() instanceof Player player) {
             if (player.getMainHandItem().is(Strange.DEFENSE_SHIELD)) {
                 Strange.STRANGE_PART_DAMAGE_BLOCKED.get().incrementTag(player.getMainHandItem(), event.getOriginalBlockedDamage());
+            } else if (player.getOffhandItem().is(Strange.DEFENSE_SHIELD)) {
+                Strange.STRANGE_PART_DAMAGE_BLOCKED.get().incrementTag(player.getOffhandItem(), event.getOriginalBlockedDamage());
             }
         }
     }
