@@ -56,6 +56,9 @@ public class ItemTagsDataProvider extends ItemTagsProvider {
         ForgeRegistries.ITEMS.getValues().stream()
                 .filter(Item::canBeDepleted)
                 .forEach(ITEM_DAMAGEABLE::add);
+
+        this.tag(Strange.ELYTRA)
+                .add(Items.ELYTRA);
     }
 
     @Override

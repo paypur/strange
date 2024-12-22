@@ -4,6 +4,7 @@ import me.paypur.strange.Strange;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ElytraItem;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -23,7 +24,8 @@ public abstract class PlayerMixin {
         strange$pOriginalDamageAmount = pDamageAmount;
     }
 
-    @Inject(method = "actuallyHurt(Lnet/minecraft/world/damagesource/DamageSource;F)V",
+    @Inject(
+        method = "actuallyHurt(Lnet/minecraft/world/damagesource/DamageSource;F)V",
         at = @At(
             value = "INVOKE_ASSIGN",
             target = "Lnet/minecraftforge/common/ForgeHooks;onLivingDamage(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/damagesource/DamageSource;F)F"
@@ -46,6 +48,21 @@ public abstract class PlayerMixin {
                     // This will assume damage reduction is linear, which it isn't but whatever close enough
                     Strange.STRANGE_PART_DAMAGE_BLOCKED.get().incrementTag(stack, reduction * armor.getDefense() / totalDefense);
                 }
+            }
+        }
+    }
+
+    @Inject(
+            method = "checkMovementStatistics(DDD)V",
+            at = @At("HEAD")
+    )
+    void checkMovementStatistics(double pDistanceX, double pDistanceY, double pDistanceZ, CallbackInfo ci) {
+        if (((Player) (Object) this).isFallFlying()) {
+            double dist = Math.sqrt(pDistanceX * pDistanceX + pDistanceY * pDistanceY + pDistanceZ * pDistanceZ);
+            for (ItemStack stack : ((Player) (Object) this).getArmorSlots()) {
+//                if (stack.getItem() instanceof ElytraItem) {
+                    Strange.STRANGE_PART_BLOCKS_FLOWN.get().incrementTag(stack, dist);
+//                }
             }
         }
     }

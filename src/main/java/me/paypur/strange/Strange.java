@@ -38,6 +38,7 @@ public class Strange {
     public static final TagKey<Item> DEFENSE = ItemTags.create(new ResourceLocation(MOD_ID, "defense"));
     public static final TagKey<Item> DEFENSE_ARMOR = ItemTags.create(new ResourceLocation(MOD_ID, "defense/armor"));
     public static final TagKey<Item> DEFENSE_SHIELD = ItemTags.create(new ResourceLocation(MOD_ID, "defense/shield"));
+    public static final TagKey<Item> ELYTRA = ItemTags.create(new ResourceLocation(MOD_ID, "elytra"));
 
     public static final TagKey<Item> WEAPONS = ItemTags.create(new ResourceLocation(MOD_ID, "weapons"));
     public static final TagKey<Item> WEAPONS_MELEE = ItemTags.create(new ResourceLocation(MOD_ID, "weapons/melee"));
@@ -55,6 +56,8 @@ public class Strange {
     // weapons
     // TODO: tech limitations for now
 //    public static final RegistryObject<Item> STRANGE_PART_CRITICAL_KILLS = ITEMS.register("strange_part_critical_kills", ITEM_SUPPLIER);
+
+    // TODO: steal some stuff from the statistics tab
 
     public static final RegistryObject<StrangePart> STRANGE_PART_ACCURACY = ITEMS.register("strange_part_accuracy", () -> new StrangePartDouble("accuracy", WEAPONS));
 
@@ -78,6 +81,7 @@ public class Strange {
     // armor
 //    public static final RegistryObject<StrangePart> STRANGE_PART_DAMAGE_REDUCED = ITEMS.register("strange_part_damage_reduced", () -> new StrangePartDouble("damage_reduced", DEFENSE_ARMOR));
     public static final RegistryObject<StrangePart> STRANGE_PART_DAMAGE_BLOCKED = ITEMS.register("strange_part_damage_blocked", () -> new StrangePartDouble("damage_blocked", DEFENSE));
+    public static final RegistryObject<StrangePart> STRANGE_PART_BLOCKS_FLOWN = ITEMS.register("strange_part_blocks_flown", () -> new StrangePartDouble("blocks_flown", ELYTRA));
 
     // general
     public static final RegistryObject<StrangePart> STRANGE_PART_DURABILITY_USED = ITEMS.register("strange_part_durability_used", () -> new StrangePartLong("durability_used", ITEM_DAMAGEABLE));

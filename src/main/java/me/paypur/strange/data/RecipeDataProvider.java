@@ -43,6 +43,10 @@ public class RecipeDataProvider extends RecipeProvider {
                 .forEach(item -> strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_DAMAGE_BLOCKED.get()));
 
         ForgeRegistries.ITEMS.getValues().stream()
+                .filter(item -> item instanceof ElytraItem)
+                .forEach(item -> strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_BLOCKS_FLOWN.get()));
+
+        ForgeRegistries.ITEMS.getValues().stream()
                 .filter(Item::canBeDepleted)
                 .forEach(item -> strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_DURABILITY_USED.get()));
 
