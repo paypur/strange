@@ -20,12 +20,23 @@ public class StrangePartLong extends StrangePart {
     }
 
     @Override
-    public void appendComponent(ItemStack stack, List<Component> components) {
+    public Number getValue(ItemStack stack) {
         CompoundTag tag = stack.getTag();
         if (tag != null && tag.contains(Strange.MOD_ID)) {
-            components.add(new TextComponent("    " + ForgeI18n.getPattern(TRANSLATION_PREFIX + NBT_KEY) +
-                tag.getCompound(Strange.MOD_ID).getLong(NBT_KEY))
-                .withStyle(ChatFormatting.DARK_GRAY));
+            return tag.getCompound(Strange.MOD_ID).getLong(NBT_KEY);
+        }
+        return 0;
+    }
+
+    @Override
+    public Component getComponent(ItemStack stack) {
+        CompoundTag tag = stack.getTag();
+        if (tag != null && tag.contains(Strange.MOD_ID) && tag.getCompound(Strange.MOD_ID).contains(NBT_KEY)) {
+            return new TextComponent(ForgeI18n.getPattern(getDescriptionId() + ".short") +
+                    tag.getCompound(Strange.MOD_ID).getLong(NBT_KEY))
+                    .withStyle(ChatFormatting.DARK_GRAY);
+        } else {
+            return TextComponent.EMPTY;
         }
     }
 
@@ -53,7 +64,7 @@ public class StrangePartLong extends StrangePart {
     @Override
     public void incrementTag(ItemStack stack, Number num) {
         CompoundTag tag = stack.getTag();
-        if (tag != null && stack.is(TAG_KEY) && tag.contains(Strange.MOD_ID)) {
+        if (tag != null && tag.contains(Strange.MOD_ID)) {
             CompoundTag strange = tag.getCompound(Strange.MOD_ID);
             if (strange.contains(NBT_KEY)) {
                 strange.putLong(NBT_KEY, strange.getLong(NBT_KEY) + num.longValue());

@@ -6,7 +6,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.ForgeI18n;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
@@ -17,14 +16,25 @@ public class Strangifier extends StrangePart {
         super("strangifier", null);
     }
 
+    public String getNbtKey(ItemStack stack) {
+        return getStrangePart(stack).getNbtKey();
+    }
+
+    @Override
+    public Number getValue(ItemStack stack) {
+        StrangePart part = getStrangePart(stack);
+        return part.getValue(stack);
+    }
+
+    @Override
+    public Component getComponent(ItemStack stack) {
+        StrangePart part = getStrangePart(stack);
+        return new TextComponent(rank(getValue(stack).longValue()) + " - ").append(part.getComponent(stack)).withStyle(ChatFormatting.DARK_GRAY);
+    }
+
     @Override
     public void appendComponent(ItemStack stack, List<Component> components) {
-        CompoundTag strange = stack.getTag().getCompound(Strange.MOD_ID);
-
-        String nbtKey = getNBTKey(stack);
-        long num = strange.getLong(nbtKey);
-
-        components.add(new TextComponent(rank(num) + " - " + ForgeI18n.getPattern(TRANSLATION_PREFIX + nbtKey) + num).withStyle(ChatFormatting.DARK_GRAY));
+        components.add(getComponent(stack));
     }
 
     @Override
@@ -42,32 +52,24 @@ public class Strangifier extends StrangePart {
         stack.getTag().put(Strange.MOD_ID, new CompoundTag());
         stack.setHoverName(stack.getHoverName().copy().withStyle(s -> s.withColor(Strange.COLOR).withItalic(false)));
 
-        CompoundTag tag = stack.getTag();
-
-        // builtin strange part
-        tag.getCompound(Strange.MOD_ID).putLong(getNBTKey(stack), 0);
-
-        cir.setReturnValue(stack);
+        StrangePart part = getStrangePart(stack);
+        part.createTag(stack, cir);
     }
 
     @Override
     public void incrementTag(ItemStack stack, Number num) {
-        CompoundTag tag = stack.getTag();
-        if (tag != null && !tag.contains(Strange.MOD_ID)) {
-            String nbtTag = getNBTKey(stack);
-            CompoundTag strange = tag.getCompound(Strange.MOD_ID);
-            strange.putLong(nbtTag, strange.getLong(nbtTag) + num.longValue());
-        }
+        StrangePart part = getStrangePart(stack);
+        part.incrementTag(stack, num);
     }
 
-    public String getNBTKey(ItemStack stack) {
-        // TODO: map to a strange part instead so i can handle doubles and longs
+    public StrangePart getStrangePart(ItemStack stack) {
+        // order matters
         if (stack.is(Strange.WEAPONS)) {
-            return "kills";
+            return Strange.STRANGE_PART_KILLS.get();
         } else if (stack.is(Strange.TOOLS_TIERED)) {
-            return "blocks_broken";
-        } else if (stack.is(Strange.ITEM_DAMAGEABLE)) {
-            return "times_used";
+            return Strange.STRANGE_PART_BLOCKS_BROKEN.get();
+        } else if (stack.is(Strange.DAMAGEABLE)) {
+            return Strange.STRANGE_PART_TIMES_USED.get();
         } else {
             throw new RuntimeException();
         }

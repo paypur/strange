@@ -20,12 +20,23 @@ public class StrangePartDouble extends StrangePart {
     }
 
     @Override
-    public void appendComponent(ItemStack stack, List<Component> components) {
+    public Number getValue(ItemStack stack) {
         CompoundTag tag = stack.getTag();
         if (tag != null && tag.contains(Strange.MOD_ID)) {
-            components.add(new TextComponent("    " + ForgeI18n.getPattern(TRANSLATION_PREFIX + NBT_KEY) +
+            return tag.getCompound(Strange.MOD_ID).getDouble(NBT_KEY);
+        }
+        return 0;
+    }
+
+    @Override
+    public Component getComponent(ItemStack stack) {
+        CompoundTag tag = stack.getTag();
+        if (tag != null && tag.contains(Strange.MOD_ID) && tag.getCompound(Strange.MOD_ID).contains(NBT_KEY)) {
+            return new TextComponent(ForgeI18n.getPattern(getDescriptionId() + ".short") +
                     String.format("%.2f", tag.getCompound(Strange.MOD_ID).getDouble(NBT_KEY)))
-                    .withStyle(ChatFormatting.DARK_GRAY));
+                    .withStyle(ChatFormatting.DARK_GRAY);
+        } else {
+            return TextComponent.EMPTY;
         }
     }
 
@@ -53,7 +64,7 @@ public class StrangePartDouble extends StrangePart {
     @Override
     public void incrementTag(ItemStack stack, Number num) {
         CompoundTag tag = stack.getTag();
-        if (tag != null && stack.is(TAG_KEY) && tag.contains(Strange.MOD_ID)) {
+        if (tag != null && tag.contains(Strange.MOD_ID)) {
             CompoundTag strange = tag.getCompound(Strange.MOD_ID);
             if (strange.contains(NBT_KEY)) {
                 strange.putDouble(NBT_KEY, strange.getDouble(NBT_KEY) + num.doubleValue());

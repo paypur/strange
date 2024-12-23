@@ -1,7 +1,9 @@
 package me.paypur.strange.item;
 
 import me.paypur.strange.Strange;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -14,7 +16,6 @@ import java.util.List;
 
 public abstract class StrangePart extends Item {
 
-    protected static final String TRANSLATION_PREFIX = "strange.part.";
     protected final TagKey<Item> TAG_KEY;
     protected final String NBT_KEY;
 
@@ -25,7 +26,20 @@ public abstract class StrangePart extends Item {
         this.TAG_KEY = tagKey;
     }
 
-    public abstract void appendComponent(ItemStack stack, List<Component> components);
+    public abstract Number getValue(ItemStack stack);
+
+    public String getNbtKey() {
+        return NBT_KEY;
+    }
+
+    public abstract Component getComponent(ItemStack stack);
+
+    public void appendComponent(ItemStack stack, List<Component> components) {
+        CompoundTag tag = stack.getTag();
+        if (tag != null && tag.contains(Strange.MOD_ID)) {
+            components.add(new TextComponent("    ").append(getComponent(stack)));
+        }
+    }
 
     public abstract void createTag(ItemStack stack, CallbackInfoReturnable<ItemStack> cir);
 

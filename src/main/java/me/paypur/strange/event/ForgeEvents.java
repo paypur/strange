@@ -34,10 +34,9 @@ public class ForgeEvents {
         CompoundTag strange = tag.getCompound(Strange.MOD_ID);
         List<Component> components = event.getToolTip();
 
-        // Order does matter as some items have multiple tags
         Strange.STRANGIFIER.get().appendComponent(stack, components);
 
-        String nbtKey = Strange.STRANGIFIER.get().getNBTKey(stack);
+        String nbtKey = Strange.STRANGIFIER.get().getNbtKey(stack);
 
         for (String key: strange.getAllKeys()) {
             if (!nbtKey.equals(key)) {
