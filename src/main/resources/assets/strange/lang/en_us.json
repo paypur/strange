@@ -27,5 +27,9 @@
     "item.strange.strange_part_durability_used": "Strange Part: Durability Used",
     "item.strange.strange_part_durability_used.short": "Durability Used: ",
     "item.strange.strange_part_times_used": "Strange Part: Times Used",
-    "item.strange.strange_part_times_used.short": "Times Used: "
+    "item.strange.strange_part_times_used.short": "Times Used: ",
+    "item.strange.strange_part_times_fired": "Strange Part: Times Fired",
+    "item.strange.strange_part_times_fired.short": "Times Fired: ",
+    "item.strange.strange_part_targets_hit": "Strange Part: Targets Hit",
+    "item.strange.strange_part_targets_hit.short": "Targets Hit: "
 }

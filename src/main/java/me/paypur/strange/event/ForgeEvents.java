@@ -4,6 +4,7 @@ import me.paypur.strange.Strange;
 import me.paypur.strange.item.StrangePart;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.HitResult;
@@ -11,6 +12,7 @@ import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.ShieldBlockEvent;
+import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.world.BlockEvent;
@@ -51,7 +53,9 @@ public class ForgeEvents {
     @SubscribeEvent
     void onKill(LivingDeathEvent event) {
         if (event.getSource().getEntity() instanceof Player player) {
-            ItemStack stack = player.getMainHandItem();
+            InteractionHand hand = player.getUsedItemHand();
+            ItemStack stack = player.getItemInHand(hand);
+
             Strange.STRANGE_PART_KILLS.get().incrementTag(stack);
 
             if (!event.getEntityLiving().isOnGround()) {
@@ -81,10 +85,19 @@ public class ForgeEvents {
     // maybe use AttackEntityEvent instead
     void onDamage(LivingDamageEvent event) {
         if (event.getSource().getEntity() instanceof Player player) {
-            ItemStack stack = player.getMainHandItem();
+            InteractionHand hand = player.getUsedItemHand();
+            ItemStack stack = player.getItemInHand(hand);
+
             float dealt = Math.min(event.getEntityLiving().getHealth(), event.getAmount());
             Strange.STRANGE_PART_DAMAGE_DEALT.get().incrementTag(stack, dealt);
+
+            Strange.STRANGE_PART_TARGETS_HIT.get().incrementTag(stack);
         }
+    }
+
+    @SubscribeEvent
+    void onBowRelease(ArrowLooseEvent event) {
+        Strange.STRANGE_PART_TIMES_FIRED.get().incrementTag(event.getBow());
     }
 
     @SubscribeEvent
@@ -108,12 +121,12 @@ public class ForgeEvents {
         }
     }
 
-    @SubscribeEvent
-    void onBucket(FillBucketEvent event) {
-        if (event.getTarget().getType() != HitResult.Type.MISS) {
-            ItemStack stack = event.getEmptyBucket();
-            Strange.STRANGE_PART_TIMES_USED.get().incrementTag(stack);
-        }
-    }
+//    @SubscribeEvent
+//    void onBucket(FillBucketEvent event) {
+//        if (event.getTarget().getType() != HitResult.Type.MISS) {
+//            ItemStack stack = event.getEmptyBucket();
+//            Strange.STRANGE_PART_TIMES_USED.get().incrementTag(stack);
+//        }
+//    }
 
 }

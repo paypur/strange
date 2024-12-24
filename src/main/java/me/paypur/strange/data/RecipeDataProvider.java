@@ -6,6 +6,7 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.UpgradeRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -29,13 +30,25 @@ public class RecipeDataProvider extends RecipeProvider {
         ForgeRegistries.ITEMS.getValues().stream()
                 .filter(ItemTypeUtil::isWeapon)
                 .forEach(item -> {
+                    strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_DAMAGE_DEALT.get());
                     strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_KILLS.get());
-                    strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_KILLS_AIRBORNE.get());
-                    strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_KILLS_UNDERWATER.get());
                     strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_KILLS_PLAYERS.get());
                     strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_KILLS_MOBS.get());
+                    strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_TARGETS_HIT.get());
+                    strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_TIMES_FIRED.get());
 //                    strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_KILLS_ONE_SHOT.get());
-                    strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_DAMAGE_DEALT.get());
+                });
+
+        ForgeRegistries.ITEMS.getValues().stream()
+                .filter(ItemTypeUtil::isWeaponMelee)
+                .forEach(item -> {
+                    strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_KILLS_UNDERWATER.get());
+                });
+
+        ForgeRegistries.ITEMS.getValues().stream()
+                .filter(ItemTypeUtil::isWeaponRanged)
+                .forEach(item -> {
+                    strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_KILLS_AIRBORNE.get());
                 });
 
         ForgeRegistries.ITEMS.getValues().stream()

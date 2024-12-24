@@ -21,7 +21,7 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
     }
 
     @Redirect(
-            method = "Lnet/minecraft/world/inventory/AnvilMenu;createResult()V",
+            method = "createResult()V",
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/world/item/ItemStack;setHoverName(Lnet/minecraft/network/chat/Component;)Lnet/minecraft/world/item/ItemStack;"

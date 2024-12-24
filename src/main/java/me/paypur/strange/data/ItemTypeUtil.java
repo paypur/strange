@@ -10,14 +10,7 @@ public class ItemTypeUtil {
                 isShield(item) ||
                 item instanceof FishingRodItem ||
                 item instanceof ShearsItem ||
-    // TODO: idk if i want to keep this, only non damageable
-//                item instanceof BucketItem ||
                 item instanceof FlintAndSteelItem;
-    }
-
-    // TODO
-    public static boolean isWearable(Item item) {
-        return false;
     }
 
     public static boolean isDefense(Item item) {

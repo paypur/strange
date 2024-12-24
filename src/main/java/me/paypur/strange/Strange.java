@@ -2,10 +2,7 @@ package me.paypur.strange;
 
 import me.paypur.strange.event.ForgeEvents;
 import me.paypur.strange.event.ModEvents;
-import me.paypur.strange.item.StrangePart;
-import me.paypur.strange.item.StrangePartDouble;
-import me.paypur.strange.item.StrangePartLong;
-import me.paypur.strange.item.Strangifier;
+import me.paypur.strange.item.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -52,13 +49,14 @@ public class Strange {
 
     public static final HashMap<String, StrangePart> STRANGE_PART_MAP = new HashMap<>();
     public static final RegistryObject<Strangifier> STRANGIFIER = ITEMS.register("strangifier", Strangifier::new);
+
     // weapons
     // TODO: tech limitations for now
 //    public static final RegistryObject<Item> STRANGE_PART_CRITICAL_KILLS = ITEMS.register("strange_part_critical_kills", ITEM_SUPPLIER);
 
     // TODO: steal some stuff from the statistics tab
-
-//    public static final RegistryObject<StrangePart> STRANGE_PART_ACCURACY = ITEMS.register("strange_part_accuracy", () -> new StrangePartDouble("accuracy", WEAPONS));
+    public static final RegistryObject<StrangePart> STRANGE_PART_TARGETS_HIT = ITEMS.register("strange_part_targets_hit", () -> new StrangePartLong("times_targets_hit", WEAPONS));
+    public static final RegistryObject<StrangePart> STRANGE_PART_TIMES_FIRED = ITEMS.register("strange_part_times_fired", () -> new StrangePartLong("times_fired", WEAPONS));
 
     public static final RegistryObject<StrangePart> STRANGE_PART_KILLS = ITEMS.register("strange_part_kills", () -> new StrangePartLong("kills", WEAPONS));
     public static final RegistryObject<StrangePart> STRANGE_PART_KILLS_AIRBORNE = ITEMS.register("strange_part_kills_airborne", () -> new StrangePartLong("kills_airborne", WEAPONS_RANGED));

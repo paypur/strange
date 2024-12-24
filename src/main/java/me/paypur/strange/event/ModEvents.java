@@ -14,8 +14,8 @@ public class ModEvents {
         DataGenerator generator = event.getGenerator();
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
 //        if (event.includeServer()) {
-            generator.addProvider(new RecipeDataProvider(generator));
             generator.addProvider(new ItemTagsDataProvider(generator, existingFileHelper));
+            generator.addProvider(new RecipeDataProvider(generator));
 //        }
     }
 
