@@ -4,9 +4,12 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "AnvilMenuMixin",
+    "AxeItemMixin",
+    "HoeItemMixin",
     "ItemStackMixin",
     "MinecraftMixin",
     "PlayerMixin",
+    "ShovelItemMixin",
     "UpgradeRecipeMixin"
   ],
   "injectors": {

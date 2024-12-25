@@ -64,15 +64,16 @@ public class Strangifier extends StrangePart {
 
     public StrangePart getStrangePart(ItemStack stack) {
         // order matters
+        if (stack.is(Strange.TOOLS_BREAKING)) {
+            return Strange.STRANGE_PART_BLOCKS_BROKEN.get();
+        }
         if (stack.is(Strange.WEAPONS)) {
             return Strange.STRANGE_PART_KILLS.get();
-        } else if (stack.is(Strange.TOOLS_TIERED)) {
-            return Strange.STRANGE_PART_BLOCKS_BROKEN.get();
-        } else if (stack.is(Strange.DAMAGEABLE)) {
-            return Strange.STRANGE_PART_TIMES_USED.get();
-        } else {
-            throw new RuntimeException();
         }
+        if (stack.is(Strange.DAMAGEABLE)) {
+            return Strange.STRANGE_PART_TIMES_USED.get();
+        }
+        throw new RuntimeException();
     }
 
     // surely theres a better way to do this

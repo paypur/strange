@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "#strange:tools/pickaxe",
+    "#strange:tools/axe",
+    "#strange:tools/shovel"
+  ]
+}

@@ -32,7 +32,7 @@ public class StrangePartLong extends StrangePart {
     public Component getComponent(ItemStack stack) {
         CompoundTag tag = stack.getTag();
         if (tag != null && tag.contains(Strange.MOD_ID) && tag.getCompound(Strange.MOD_ID).contains(NBT_KEY)) {
-            return new TextComponent(ForgeI18n.getPattern(getDescriptionId() + ".short") +
+            return new TextComponent(ForgeI18n.getPattern(getDescriptionId() + ".desc") +
                     tag.getCompound(Strange.MOD_ID).getLong(NBT_KEY))
                     .withStyle(ChatFormatting.DARK_GRAY);
         } else {

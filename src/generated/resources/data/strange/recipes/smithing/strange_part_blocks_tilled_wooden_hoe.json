@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:wooden_hoe"
+  },
+  "addition": {
+    "item": "strange:strange_part_blocks_tilled"
+  },
+  "result": {
+    "item": "minecraft:wooden_hoe"
+  }
+}

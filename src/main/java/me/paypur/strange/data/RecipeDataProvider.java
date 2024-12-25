@@ -67,8 +67,33 @@ public class RecipeDataProvider extends RecipeProvider {
                 .filter(ItemTypeUtil::isToolTiered)
                 .forEach(item -> {
                     strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_BLOCKS_BROKEN.get());
+                });
+
+        ForgeRegistries.ITEMS.getValues().stream()
+                .filter(item -> item instanceof PickaxeItem)
+                .forEach(item -> {
                     strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_ORES_BROKEN.get());
                 });
+
+        ForgeRegistries.ITEMS.getValues().stream()
+                .filter(item -> item instanceof AxeItem)
+                .forEach(item -> {
+                    strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_BLOCKS_STRIPPED.get());
+                });
+
+        ForgeRegistries.ITEMS.getValues().stream()
+                .filter(item -> item instanceof ShovelItem)
+                .forEach(item -> {
+                    strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_BLOCKS_PATHED.get());
+                });
+
+        ForgeRegistries.ITEMS.getValues().stream()
+                .filter(item -> item instanceof HoeItem)
+                .forEach(item -> {
+                    strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_BLOCKS_TILLED.get());
+                });
+
+
     }
 
     private void strangify(Consumer<FinishedRecipe> pFinishedRecipeConsumer, Item item) {

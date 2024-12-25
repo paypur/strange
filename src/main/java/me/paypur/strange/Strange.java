@@ -40,14 +40,17 @@ public class Strange {
     public static final TagKey<Item> WEAPONS_RANGED = ItemTags.create(new ResourceLocation(MOD_ID, "weapons/ranged"));
 
     public static final TagKey<Item> TOOLS = ItemTags.create(new ResourceLocation(MOD_ID, "tools"));
-    public static final TagKey<Item> TOOLS_TIERED = ItemTags.create(new ResourceLocation(MOD_ID, "tools/tiered"));
+    public static final TagKey<Item> TOOLS_BREAKING = ItemTags.create(new ResourceLocation(MOD_ID, "tools/breaking"));
+    public static final TagKey<Item> TOOLS_PICKAXE = ItemTags.create(new ResourceLocation(MOD_ID, "tools/pickaxe"));
     public static final TagKey<Item> TOOLS_AXE = ItemTags.create(new ResourceLocation(MOD_ID, "tools/axe"));
+    public static final TagKey<Item> TOOLS_SHOVEL = ItemTags.create(new ResourceLocation(MOD_ID, "tools/shovel"));
     public static final TagKey<Item> TOOLS_HOE = ItemTags.create(new ResourceLocation(MOD_ID, "tools/hoe"));
 
     public static final TagKey<Item> DAMAGEABLE = ItemTags.create(new ResourceLocation(MOD_ID, "damageable"));
 
 
     public static final HashMap<String, StrangePart> STRANGE_PART_MAP = new HashMap<>();
+
     public static final RegistryObject<Strangifier> STRANGIFIER = ITEMS.register("strangifier", Strangifier::new);
 
     // weapons
@@ -55,36 +58,38 @@ public class Strange {
 //    public static final RegistryObject<Item> STRANGE_PART_CRITICAL_KILLS = ITEMS.register("strange_part_critical_kills", ITEM_SUPPLIER);
 
     // TODO: steal some stuff from the statistics tab
-    public static final RegistryObject<StrangePart> STRANGE_PART_TARGETS_HIT = ITEMS.register("strange_part_targets_hit", () -> new StrangePartLong("times_targets_hit", WEAPONS));
-    public static final RegistryObject<StrangePart> STRANGE_PART_TIMES_FIRED = ITEMS.register("strange_part_times_fired", () -> new StrangePartLong("times_fired", WEAPONS));
+    public static final RegistryObject<StrangePart> STRANGE_PART_TARGETS_HIT = strangePartLong("times_targets_hit", WEAPONS);
+    public static final RegistryObject<StrangePart> STRANGE_PART_TIMES_FIRED = strangePartLong("times_fired", WEAPONS);
 
-    public static final RegistryObject<StrangePart> STRANGE_PART_KILLS = ITEMS.register("strange_part_kills", () -> new StrangePartLong("kills", WEAPONS));
-    public static final RegistryObject<StrangePart> STRANGE_PART_KILLS_AIRBORNE = ITEMS.register("strange_part_kills_airborne", () -> new StrangePartLong("kills_airborne", WEAPONS_RANGED));
-    public static final RegistryObject<StrangePart> STRANGE_PART_KILLS_UNDERWATER = ITEMS.register("strange_part_kills_underwater", () -> new StrangePartLong("kills_underwater", WEAPONS));
-    public static final RegistryObject<StrangePart> STRANGE_PART_KILLS_MOBS = ITEMS.register("strange_part_kills_mobs", () -> new StrangePartLong("kills_mobs", WEAPONS));
-    public static final RegistryObject<StrangePart> STRANGE_PART_KILLS_PLAYERS = ITEMS.register("strange_part_kills_players", () -> new StrangePartLong("kills_players", WEAPONS));
-//    public static final RegistryObject<StrangePart> STRANGE_PART_KILLS_ONE_SHOT = ITEMS.register("strange_part_kills_one_shot", () -> new StrangePartLong("kills_one_shot", WEAPONS));
+    public static final RegistryObject<StrangePart> STRANGE_PART_KILLS = strangePartLong("kills", WEAPONS);
+    public static final RegistryObject<StrangePart> STRANGE_PART_KILLS_AIRBORNE = strangePartLong("kills_airborne", WEAPONS_RANGED);
+    public static final RegistryObject<StrangePart> STRANGE_PART_KILLS_UNDERWATER = strangePartLong("kills_underwater", WEAPONS);
+    public static final RegistryObject<StrangePart> STRANGE_PART_KILLS_MOBS = strangePartLong("kills_mobs", WEAPONS);
+    public static final RegistryObject<StrangePart> STRANGE_PART_KILLS_PLAYERS = strangePartLong("kills_players", WEAPONS);
+//    public static final RegistryObject<StrangePart> STRANGE_PART_KILLS_ONE_SHOT = strangePartLong("kills_one_shot", WEAPONS));
     // TODO: bosses killed, how to differentiate a boss?
-//    public static final RegistryObject<StrangePart> STRANGE_PART_KILLS_BOSSES = ITEMS.register("strange_part_kills_bosses", () -> new StrangePartLong("kills_bosses", WEAPONS));
+//    public static final RegistryObject<StrangePart> STRANGE_PART_KILLS_BOSSES = strangePartLong("kills_bosses", WEAPONS));
     // TODO: maybe also do every vanilla mob
 
-    public static final RegistryObject<StrangePart> STRANGE_PART_DAMAGE_DEALT = ITEMS.register("strange_part_damage_dealt", () -> new StrangePartDouble("damage_dealt", WEAPONS));
+    public static final RegistryObject<StrangePart> STRANGE_PART_DAMAGE_DEALT = strangePartDouble("damage_dealt", WEAPONS);
 
     // tools
-    public static final RegistryObject<StrangePart> STRANGE_PART_BLOCKS_BROKEN = ITEMS.register("strange_part_blocks_broken", () -> new StrangePartLong("blocks_broken", TOOLS_TIERED));
-    public static final RegistryObject<StrangePart> STRANGE_PART_ORES_BROKEN = ITEMS.register("strange_part_ores_broken", () -> new StrangePartLong("ores_broken", TOOLS_TIERED));
-//    public static final RegistryObject<StrangePart> STRANGE_PART_BLOCKS_TILLED = ITEMS.register("strange_part_blocks_tilled", () -> new StrangePartLong("blocks_tilled", TOOLS_HOE));
+    public static final RegistryObject<StrangePart> STRANGE_PART_BLOCKS_BROKEN = strangePartLong("blocks_broken", TOOLS);
+
+    public static final RegistryObject<StrangePart> STRANGE_PART_ORES_BROKEN = strangePartLong("ores_broken", TOOLS_PICKAXE);
+    public static final RegistryObject<StrangePart> STRANGE_PART_BLOCKS_STRIPPED = strangePartLong("blocks_stripped", TOOLS_AXE);
+    public static final RegistryObject<StrangePart> STRANGE_PART_BLOCKS_TILLED = strangePartLong("blocks_tilled", TOOLS_HOE);
+    public static final RegistryObject<StrangePart> STRANGE_PART_BLOCKS_PATHED = strangePartLong("blocks_pathed", TOOLS_SHOVEL);
 
     // armor
-//    public static final RegistryObject<StrangePart> STRANGE_PART_DAMAGE_REDUCED = ITEMS.register("strange_part_damage_reduced", () -> new StrangePartDouble("damage_reduced", DEFENSE_ARMOR));
-    public static final RegistryObject<StrangePart> STRANGE_PART_DAMAGE_BLOCKED = ITEMS.register("strange_part_damage_blocked", () -> new StrangePartDouble("damage_blocked", DEFENSE));
-    public static final RegistryObject<StrangePart> STRANGE_PART_BLOCKS_FLOWN = ITEMS.register("strange_part_blocks_flown", () -> new StrangePartDouble("blocks_flown", ELYTRA));
+    public static final RegistryObject<StrangePart> STRANGE_PART_DAMAGE_BLOCKED = strangePartDouble("damage_blocked", DEFENSE);
+    public static final RegistryObject<StrangePart> STRANGE_PART_BLOCKS_FLOWN = strangePartDouble("blocks_flown", ELYTRA);
 
     // general
-    public static final RegistryObject<StrangePart> STRANGE_PART_DURABILITY_USED = ITEMS.register("strange_part_durability_used", () -> new StrangePartLong("durability_used", DAMAGEABLE));
-    public static final RegistryObject<StrangePart> STRANGE_PART_TIMES_USED = ITEMS.register("strange_part_times_used", () -> new StrangePartLong("times_used", DAMAGEABLE));
-//    public static final RegistryObject<StrangePart> STRANGE_PART_TIMES_REPAIRED = ITEMS.register("strange_part_times_repaired", () -> new StrangePartLong("times_repaired", DAMAGEABLE));
-//    public static final RegistryObject<StrangePart> STRANGE_PART_TIMES_ENCHANTED = ITEMS.register("strange_part_times_enchanted", () -> new StrangePartLong("times_enchanted", DAMAGEABLE));
+    public static final RegistryObject<StrangePart> STRANGE_PART_DURABILITY_USED = strangePartLong("durability_used", DAMAGEABLE);
+    public static final RegistryObject<StrangePart> STRANGE_PART_TIMES_USED = strangePartLong("times_used", DAMAGEABLE);
+//    public static final RegistryObject<StrangePart> STRANGE_PART_TIMES_REPAIRED = strangePartLong("times_repaired", DAMAGEABLE));
+//    public static final RegistryObject<StrangePart> STRANGE_PART_TIMES_ENCHANTED = strangePartLong("times_enchanted", DAMAGEABLE));
 
     public Strange() {
         IEventBus forge = MinecraftForge.EVENT_BUS;
@@ -96,4 +101,11 @@ public class Strange {
         ITEMS.register(mod);
     }
 
+    private static RegistryObject<StrangePart> strangePartLong(String id, TagKey<Item> tag) {
+        return ITEMS.register("strange_part_" + id, () -> new StrangePartLong(id, tag));
+    }
+
+    private static RegistryObject<StrangePart> strangePartDouble(String id, TagKey<Item> tag) {
+        return ITEMS.register("strange_part_" + id, () -> new StrangePartDouble(id, tag));
+    }
 }

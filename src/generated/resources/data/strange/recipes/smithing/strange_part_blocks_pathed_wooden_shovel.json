@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:wooden_shovel"
+  },
+  "addition": {
+    "item": "strange:strange_part_blocks_pathed"
+  },
+  "result": {
+    "item": "minecraft:wooden_shovel"
+  }
+}

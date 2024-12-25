@@ -47,10 +47,30 @@ public class ItemTagsDataProvider extends ItemTagsProvider {
                 .filter(ItemTypeUtil::isShield)
                 .forEach(DEFENSE_SHIELD::add);
 
-        final TagAppender<Item> TOOLS_TIERED = this.tag(Strange.TOOLS_TIERED);
+        this.tag(Strange.TOOLS_BREAKING)
+                .addTag(Strange.TOOLS_PICKAXE)
+                .addTag(Strange.TOOLS_AXE)
+                .addTag(Strange.TOOLS_SHOVEL);
+
+        final TagAppender<Item> TOOLS_PICKAXE = this.tag(Strange.TOOLS_PICKAXE);
         ForgeRegistries.ITEMS.getValues().stream()
-                .filter(ItemTypeUtil::isToolTiered)
-                .forEach(TOOLS_TIERED::add);
+                .filter(item -> item instanceof PickaxeItem)
+                .forEach(TOOLS_PICKAXE::add);
+
+        final TagAppender<Item> TOOLS_AXE = this.tag(Strange.TOOLS_AXE);
+        ForgeRegistries.ITEMS.getValues().stream()
+                .filter(item -> item instanceof AxeItem)
+                .forEach(TOOLS_AXE::add);
+
+        final TagAppender<Item> TOOLS_SHOVEL = this.tag(Strange.TOOLS_SHOVEL);
+        ForgeRegistries.ITEMS.getValues().stream()
+                .filter(item -> item instanceof ShovelItem)
+                .forEach(TOOLS_SHOVEL::add);
+
+        final TagAppender<Item> TOOLS_HOE = this.tag(Strange.TOOLS_HOE);
+        ForgeRegistries.ITEMS.getValues().stream()
+                .filter(item -> item instanceof HoeItem)
+                .forEach(TOOLS_HOE::add);
 
         final TagAppender<Item> ITEM_DAMAGEABLE = this.tag(Strange.DAMAGEABLE);
         ForgeRegistries.ITEMS.getValues().stream()

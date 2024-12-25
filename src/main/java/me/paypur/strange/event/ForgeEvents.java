@@ -15,6 +15,7 @@ import net.minecraftforge.event.entity.living.ShieldBlockEvent;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -111,6 +112,12 @@ public class ForgeEvents {
     }
 
     @SubscribeEvent
+    void onRightClick(PlayerInteractEvent.RightClickBlock event) {
+        event.getItemStack();
+        event.getUseBlock();
+    }
+
+    @SubscribeEvent
     void onBlock(ShieldBlockEvent event) {
         if (event.getEntityLiving() instanceof Player player) {
             if (player.getMainHandItem().is(Strange.DEFENSE_SHIELD)) {
@@ -120,13 +127,4 @@ public class ForgeEvents {
             }
         }
     }
-
-//    @SubscribeEvent
-//    void onBucket(FillBucketEvent event) {
-//        if (event.getTarget().getType() != HitResult.Type.MISS) {
-//            ItemStack stack = event.getEmptyBucket();
-//            Strange.STRANGE_PART_TIMES_USED.get().incrementTag(stack);
-//        }
-//    }
-
 }
