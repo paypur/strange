@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:wooden_axe"
+  },
+  "addition": {
+    "item": "strange:strange_part_hits_critical"
+  },
+  "result": {
+    "item": "minecraft:wooden_axe"
+  }
+}

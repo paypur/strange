@@ -6,7 +6,6 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.UpgradeRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -34,7 +33,7 @@ public class RecipeDataProvider extends RecipeProvider {
                     strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_KILLS.get());
                     strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_KILLS_PLAYERS.get());
                     strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_KILLS_MOBS.get());
-                    strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_TARGETS_HIT.get());
+                    strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_HITS.get());
                     strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_TIMES_FIRED.get());
 //                    strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_KILLS_ONE_SHOT.get());
                 });
@@ -42,6 +41,8 @@ public class RecipeDataProvider extends RecipeProvider {
         ForgeRegistries.ITEMS.getValues().stream()
                 .filter(ItemTypeUtil::isWeaponMelee)
                 .forEach(item -> {
+                    strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_HITS_CRITICAL.get());
+                    strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_KILLS_CRITICAL.get());
                     strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_KILLS_UNDERWATER.get());
                 });
 

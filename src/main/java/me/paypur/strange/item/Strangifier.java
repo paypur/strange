@@ -39,8 +39,8 @@ public class Strangifier extends StrangePart {
 
     @Override
     public void createTag(ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
+        // storing the tag as a var causes problems if updated later
         if (stack.getTag() == null) {
-            // TODO: storing the tag as a var causes problems if updated later
             stack.setTag(new CompoundTag());
         }
 

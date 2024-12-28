@@ -3,8 +3,11 @@
 
     "item.strange.strange_part_damage_dealt": "Strange Part: Damage Dealt",
     "item.strange.strange_part_damage_dealt.desc": "Damage Dealt: ",
+
     "item.strange.strange_part_kills": "Strange Part: Kills",
     "item.strange.strange_part_kills.desc": "Kills: ",
+    "item.strange.strange_part_kills_critical": "Strange Part: Critical Kills",
+    "item.strange.strange_part_kills_critical.desc": "Critical Kills: ",
     "item.strange.strange_part_kills_airborne": "Strange Part: Air-shot Kills",
     "item.strange.strange_part_kills_airborne.desc": "Air-shot Kills: ",
     "item.strange.strange_part_kills_underwater": "Strange Part: Underwater Kills",
@@ -15,13 +18,16 @@
     "item.strange.strange_part_kills_players.desc": "Players Killed: ",
     "item.strange.strange_part_kills_one_shot": "Strange Part: One-Shot Kills",
     "item.strange.strange_part_kills_one_shot.desc": "One-Shot Kills: ",
+
     "item.strange.strange_part_times_used": "Strange Part: Times Used",
     "item.strange.strange_part_times_used.desc": "Times Used: ",
 
+    "item.strange.strange_part_hits": "Strange Part: Targets Hit",
+    "item.strange.strange_part_hits.desc": "Targets Hit: ",
+    "item.strange.strange_part_hits_critical": "Strange Part: Critical Hits",
+    "item.strange.strange_part_hits_critical.desc": "Critical Hits: ",
     "item.strange.strange_part_times_fired": "Strange Part: Times Fired",
     "item.strange.strange_part_times_fired.desc": "Times Fired: ",
-    "item.strange.strange_part_targets_hit": "Strange Part: Targets Hit",
-    "item.strange.strange_part_targets_hit.desc": "Targets Hit: ",
 
     "item.strange.strange_part_blocks_flown": "Strange Part: Blocks Flown",
     "item.strange.strange_part_blocks_flown.desc": "Blocks Flown: ",

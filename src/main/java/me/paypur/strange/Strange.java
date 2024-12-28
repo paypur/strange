@@ -55,15 +55,18 @@ public class Strange {
 
     // weapons
     // TODO: tech limitations for now
-//    public static final RegistryObject<Item> STRANGE_PART_CRITICAL_KILLS = ITEMS.register("strange_part_critical_kills", ITEM_SUPPLIER);
 
     // TODO: steal some stuff from the statistics tab
-    public static final RegistryObject<StrangePart> STRANGE_PART_TARGETS_HIT = strangePartLong("times_targets_hit", WEAPONS);
+    public static final RegistryObject<StrangePart> STRANGE_PART_HITS = strangePartLong("hits", WEAPONS);
+    public static final RegistryObject<StrangePart> STRANGE_PART_HITS_CRITICAL = strangePartLong("hits_critical", WEAPONS);
+//    public static final RegistryObject<StrangePart> STRANGE_PART_HITS_AIRBORNE = strangePartLong("hits_airborne", WEAPONS_RANGED);
+//    public static final RegistryObject<StrangePart> STRANGE_PART_HITS_UNDERWATER = strangePartLong("hits_underwater", WEAPONS_MELEE);
     public static final RegistryObject<StrangePart> STRANGE_PART_TIMES_FIRED = strangePartLong("times_fired", WEAPONS);
 
     public static final RegistryObject<StrangePart> STRANGE_PART_KILLS = strangePartLong("kills", WEAPONS);
+    public static final RegistryObject<StrangePart> STRANGE_PART_KILLS_CRITICAL = strangePartLong("kills_critical", WEAPONS_MELEE);
     public static final RegistryObject<StrangePart> STRANGE_PART_KILLS_AIRBORNE = strangePartLong("kills_airborne", WEAPONS_RANGED);
-    public static final RegistryObject<StrangePart> STRANGE_PART_KILLS_UNDERWATER = strangePartLong("kills_underwater", WEAPONS);
+    public static final RegistryObject<StrangePart> STRANGE_PART_KILLS_UNDERWATER = strangePartLong("kills_underwater", WEAPONS_MELEE);
     public static final RegistryObject<StrangePart> STRANGE_PART_KILLS_MOBS = strangePartLong("kills_mobs", WEAPONS);
     public static final RegistryObject<StrangePart> STRANGE_PART_KILLS_PLAYERS = strangePartLong("kills_players", WEAPONS);
 //    public static final RegistryObject<StrangePart> STRANGE_PART_KILLS_ONE_SHOT = strangePartLong("kills_one_shot", WEAPONS));
@@ -82,7 +85,11 @@ public class Strange {
     public static final RegistryObject<StrangePart> STRANGE_PART_BLOCKS_PATHED = strangePartLong("blocks_pathed", TOOLS_SHOVEL);
 
     // armor
+
+    // TODO: add damage taken (also specific damage types?)
     public static final RegistryObject<StrangePart> STRANGE_PART_DAMAGE_BLOCKED = strangePartDouble("damage_blocked", DEFENSE);
+    public static final RegistryObject<StrangePart> STRANGE_PART_DAMAGE_TAKEN = strangePartDouble("damage_taken", DEFENSE);
+
     public static final RegistryObject<StrangePart> STRANGE_PART_BLOCKS_FLOWN = strangePartDouble("blocks_flown", ELYTRA);
 
     // general

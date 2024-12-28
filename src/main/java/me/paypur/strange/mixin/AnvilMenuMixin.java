@@ -14,11 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(AnvilMenu.class)
-public abstract class AnvilMenuMixin extends ItemCombinerMenu {
-
-    public AnvilMenuMixin(@Nullable MenuType<?> pType, int pContainerId, Inventory pPlayerInventory, ContainerLevelAccess pAccess) {
-        super(pType, pContainerId, pPlayerInventory, pAccess);
-    }
+public abstract class AnvilMenuMixin {
 
     @Redirect(
             method = "createResult()V",
@@ -28,13 +24,11 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
             )
     )
     ItemStack setHoverName(ItemStack stack, Component pNameComponent) {
-        assert stack.getTag() != null;
-        if (stack.getTag().contains(Strange.MOD_ID)) {
-            stack.setHoverName(pNameComponent.copy().withStyle(s -> s.withColor(Strange.COLOR)));
-        } else {
-            // vanilla ignores any existing style
-            stack.setHoverName(pNameComponent);
+        if (stack.getTag() != null && stack.getTag().contains(Strange.MOD_ID)) {
+            pNameComponent = pNameComponent.copy().withStyle(s -> s.withColor(Strange.COLOR));
         }
+        // vanilla ignores any existing style
+        stack.setHoverName(pNameComponent);
         return stack;
     }
 

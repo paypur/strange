@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "#strange:tools/breaking",
+    "#strange:weapons/melee",
+    "#strange:tools/hoe"
+  ]
+}

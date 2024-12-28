@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:stone_sword"
+  },
+  "addition": {
+    "item": "strange:strange_part_kills_critical"
+  },
+  "result": {
+    "item": "minecraft:stone_sword"
+  }
+}

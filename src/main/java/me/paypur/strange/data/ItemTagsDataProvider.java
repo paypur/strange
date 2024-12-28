@@ -47,6 +47,12 @@ public class ItemTagsDataProvider extends ItemTagsProvider {
                 .filter(ItemTypeUtil::isShield)
                 .forEach(DEFENSE_SHIELD::add);
 
+        this.tag(Strange.TOOLS)
+                .addTag(Strange.TOOLS_BREAKING)
+                // TODO: this does include tridents
+                .addTag(Strange.WEAPONS_MELEE)
+                .addTag(Strange.TOOLS_HOE);
+
         this.tag(Strange.TOOLS_BREAKING)
                 .addTag(Strange.TOOLS_PICKAXE)
                 .addTag(Strange.TOOLS_AXE)
