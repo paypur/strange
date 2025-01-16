@@ -16,14 +16,12 @@ import java.util.List;
 
 public abstract class StrangePart extends Item {
 
-    protected final TagKey<Item> TAG_KEY;
     protected final String NBT_KEY;
 
-    public StrangePart(@Nullable String nbtKey, @Nullable TagKey<Item> tagKey) {
+    public StrangePart(@Nullable String nbtKey) {
         super(new Item.Properties().rarity(Rarity.EPIC).tab(CreativeModeTab.TAB_MISC));
         Strange.STRANGE_PART_MAP.put(nbtKey, this);
         this.NBT_KEY = nbtKey;
-        this.TAG_KEY = tagKey;
     }
 
     public abstract Number getValue(ItemStack stack);

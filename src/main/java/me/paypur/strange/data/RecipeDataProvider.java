@@ -21,7 +21,6 @@ public class RecipeDataProvider extends RecipeProvider {
 
     @Override
     protected void buildCraftingRecipes(@NotNull Consumer<FinishedRecipe> pFinishedRecipeConsumer) {
-        // TODO: maybe should save these results as they are used twice
         ForgeRegistries.ITEMS.getValues().stream()
                 .filter(ItemTypeUtil::isStrangifiable)
                 .forEach(item -> strangify(pFinishedRecipeConsumer, item));
@@ -93,8 +92,6 @@ public class RecipeDataProvider extends RecipeProvider {
                 .forEach(item -> {
                     strangePart(pFinishedRecipeConsumer, item, Strange.STRANGE_PART_BLOCKS_TILLED.get());
                 });
-
-
     }
 
     private void strangify(Consumer<FinishedRecipe> pFinishedRecipeConsumer, Item item) {

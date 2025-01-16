@@ -15,8 +15,8 @@ import java.util.List;
 
 public class StrangePartDouble extends StrangePart {
 
-    public StrangePartDouble(String nbtKey, TagKey<Item> tagKey) {
-        super(nbtKey, tagKey);
+    public StrangePartDouble(String nbtKey) {
+        super(nbtKey);
     }
 
     @Override

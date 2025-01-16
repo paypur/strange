@@ -8,6 +8,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ShieldItem;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -117,9 +118,9 @@ public class ForgeEvents {
     @SubscribeEvent
     void onBlock(ShieldBlockEvent event) {
         if (event.getEntityLiving() instanceof Player player) {
-            if (player.getMainHandItem().is(Strange.DEFENSE_SHIELD)) {
+            if (player.getMainHandItem().getItem() instanceof ShieldItem) {
                 Strange.STRANGE_PART_DAMAGE_BLOCKED.get().incrementTag(player.getMainHandItem(), event.getOriginalBlockedDamage());
-            } else if (player.getOffhandItem().is(Strange.DEFENSE_SHIELD)) {
+            } else if (player.getOffhandItem().getItem() instanceof ShieldItem) {
                 Strange.STRANGE_PART_DAMAGE_BLOCKED.get().incrementTag(player.getOffhandItem(), event.getOriginalBlockedDamage());
             }
         }

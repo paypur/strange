@@ -9,11 +9,12 @@ import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
+import java.util.Optional;
 
 public class Strangifier extends StrangePart {
 
     public Strangifier() {
-        super("strangifier", null);
+        super("strangifier");
     }
 
     public String getNbtKey(ItemStack stack) {
@@ -64,16 +65,15 @@ public class Strangifier extends StrangePart {
 
     public StrangePart getStrangePart(ItemStack stack) {
         // order matters
-        if (stack.is(Strange.TOOLS_BREAKING)) {
+        if (stack.is(Strange.TOOLS)) {
             return Strange.STRANGE_PART_BLOCKS_BROKEN.get();
         }
         if (stack.is(Strange.WEAPONS)) {
             return Strange.STRANGE_PART_KILLS.get();
         }
-        if (stack.is(Strange.DAMAGEABLE)) {
-            return Strange.STRANGE_PART_TIMES_USED.get();
-        }
-        throw new RuntimeException();
+//        if (stack.is(Strange.DAMAGEABLE)) {
+        return Strange.STRANGE_PART_TIMES_USED.get();
+//        }
     }
 
     // surely theres a better way to do this

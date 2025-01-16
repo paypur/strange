@@ -15,8 +15,8 @@ import java.util.List;
 
 public class StrangePartLong extends StrangePart {
 
-    public StrangePartLong(String nbtKey, TagKey<Item> tagKey) {
-        super(nbtKey, tagKey);
+    public StrangePartLong(String nbtKey) {
+        super(nbtKey);
     }
 
     @Override
