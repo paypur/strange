@@ -4,7 +4,6 @@ import me.paypur.strange.Strange;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -35,7 +34,7 @@ public abstract class StrangePart extends Item {
     public void appendComponent(ItemStack stack, List<Component> components) {
         CompoundTag tag = stack.getTag();
         if (tag != null && tag.contains(Strange.MOD_ID)) {
-            components.add(new TextComponent("    ").append(getComponent(stack)));
+            components.add(getComponent(stack));
         }
     }
 

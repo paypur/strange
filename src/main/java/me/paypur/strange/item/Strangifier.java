@@ -4,12 +4,10 @@ import me.paypur.strange.Strange;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.List;
-import java.util.Optional;
 
 public class Strangifier extends StrangePart {
 
@@ -30,12 +28,10 @@ public class Strangifier extends StrangePart {
     @Override
     public Component getComponent(ItemStack stack) {
         StrangePart part = getStrangePart(stack);
-        return new TextComponent(rank(getValue(stack).longValue()) + " - ").append(part.getComponent(stack)).withStyle(ChatFormatting.DARK_GRAY);
-    }
-
-    @Override
-    public void appendComponent(ItemStack stack, List<Component> components) {
-        components.add(getComponent(stack));
+        MutableComponent component = new TextComponent(rank(getValue(stack).longValue()) + " - ")
+                .append(part.getComponent(stack))
+                .withStyle(ChatFormatting.DARK_GRAY);
+        return stack.getTag().getCompound(Strange.MOD_ID).size() > 1 ? component.withStyle(ChatFormatting.UNDERLINE) : component;
     }
 
     @Override

@@ -40,6 +40,7 @@ public class ForgeEvents {
         Strange.STRANGIFIER.get().appendComponent(stack, components);
         String nbtKey = Strange.STRANGIFIER.get().getNbtKey(stack);
 
+        // TODO: figure out ordering
         // this compares the strange part id, which is not necessarily the same as the translation
         for (String key: new TreeSet<>(strange.getAllKeys())) {
             if (!nbtKey.equals(key)) {
@@ -55,8 +56,7 @@ public class ForgeEvents {
     @SubscribeEvent
     void onKill(LivingDeathEvent event) {
         if (event.getSource().getEntity() instanceof Player player) {
-            // TODO: wrong
-            ItemStack stack = player.getItemInHand(player.getUsedItemHand());
+            ItemStack stack = player.getMainHandItem();
 
             Strange.STRANGE_PART_KILLS.get().incrementTag(stack);
 
@@ -75,11 +75,9 @@ public class ForgeEvents {
     }
 
     @SubscribeEvent
-    // maybe use AttackEntityEvent instead
     void onDamage(LivingDamageEvent event) {
         if (event.getSource().getEntity() instanceof Player player) {
-            // TODO: wrong
-            ItemStack stack = player.getItemInHand(player.getUsedItemHand());
+            ItemStack stack = player.getMainHandItem();
 
             float dealt = Math.min(event.getEntityLiving().getHealth(), event.getAmount());
             Strange.STRANGE_PART_DAMAGE_DEALT.get().incrementTag(stack, dealt);
@@ -118,9 +116,9 @@ public class ForgeEvents {
     @SubscribeEvent
     void onBlock(ShieldBlockEvent event) {
         if (event.getEntityLiving() instanceof Player player) {
-            if (player.getMainHandItem().getItem() instanceof ShieldItem) {
+            if (player.getOffhandItem().getItem() instanceof ShieldItem) {
                 Strange.STRANGE_PART_DAMAGE_BLOCKED.get().incrementTag(player.getMainHandItem(), event.getOriginalBlockedDamage());
-            } else if (player.getOffhandItem().getItem() instanceof ShieldItem) {
+            } else if (player.getMainHandItem().getItem() instanceof ShieldItem ) {
                 Strange.STRANGE_PART_DAMAGE_BLOCKED.get().incrementTag(player.getOffhandItem(), event.getOriginalBlockedDamage());
             }
         }

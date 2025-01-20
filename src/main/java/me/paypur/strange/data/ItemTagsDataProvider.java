@@ -23,10 +23,10 @@ public class ItemTagsDataProvider extends ItemTagsProvider {
         final TagAppender<Item> tools = this.tag(Strange.TOOLS);
 
         for (Item item: ForgeRegistries.ITEMS.getValues()) {
-            if (ItemTypeUtil.isWeapon(item)) {
+            if (ItemTypeUtil.isWeapon(item) && !(item instanceof AxeItem)) {
                 weapons.add(item);
             }
-            if (ItemTypeUtil.isToolTiered(item)) {
+            else if (ItemTypeUtil.isToolTiered(item)) {
                 tools.add(item);
             }
         }
