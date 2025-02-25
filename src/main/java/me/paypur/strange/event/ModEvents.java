@@ -2,6 +2,7 @@ package me.paypur.strange.event;
 
 import me.paypur.strange.data.ItemTagsDataProvider;
 import me.paypur.strange.data.RecipeDataProvider;
+import me.paypur.strange.data.StrangeItemModelProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -15,6 +16,7 @@ public class ModEvents {
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
         generator.addProvider(new ItemTagsDataProvider(generator, existingFileHelper));
         generator.addProvider(new RecipeDataProvider(generator));
+        generator.addProvider(new StrangeItemModelProvider(generator, existingFileHelper));
     }
 
 }

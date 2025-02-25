@@ -41,6 +41,8 @@ public class Strange {
 
     // weapons
     // TODO: steal some stuff from the statistics tab
+
+    // TODO: how to texture all these items with the same texture
     public static final RegistryObject<StrangePart> STRANGE_PART_HITS = strangePartLong("hits");
 //    public static final RegistryObject<StrangePart> STRANGE_PART_HITS_AIRBORNE = strangePartLong("hits_airborne");
 //    public static final RegistryObject<StrangePart> STRANGE_PART_HITS_UNDERWATER = strangePartLong("hits_underwater");
