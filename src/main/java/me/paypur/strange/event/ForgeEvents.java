@@ -91,7 +91,8 @@ public class ForgeEvents {
         if (event.getEntityLiving() instanceof Player player) {
             for (ItemStack stack : player.getArmorSlots()) {
                 if (stack.getItem() instanceof ArmorItem armor) {
-                    // This will assume damage reduction is linear, which it isn't but whatever close enough
+                    Strange.STRANGE_PART_HITS_TAKEN.get().incrementTag((ItemStack) (Object) this);
+                    // This will assume damage reduction is linear with respect to armor, which it isn't but whatever close enough
                     Strange.STRANGE_PART_DAMAGE_TAKEN.get().incrementTag(stack, event.getAmount() * armor.getDefense() / player.getArmorValue());
                 }
             }

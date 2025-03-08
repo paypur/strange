@@ -31,8 +31,9 @@ public class Strange {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MOD_ID);
 
     // determines default strange part
-    public static final TagKey<Item> WEAPONS = ItemTags.create(new ResourceLocation(MOD_ID, "weapons"));
+    public static final TagKey<Item> ARMOR = ItemTags.create(new ResourceLocation(MOD_ID, "armor"));
     public static final TagKey<Item> TOOLS = ItemTags.create(new ResourceLocation(MOD_ID, "tools"));
+    public static final TagKey<Item> WEAPONS = ItemTags.create(new ResourceLocation(MOD_ID, "weapons"));
 //    public static final TagKey<Item> DAMAGEABLE = ItemTags.create(new ResourceLocation(MOD_ID, "damageable"));
 
     public static final HashMap<String, StrangePart> STRANGE_PART_MAP = new HashMap<>();
@@ -44,6 +45,10 @@ public class Strange {
 
     // TODO: how to texture all these items with the same texture
     public static final RegistryObject<StrangePart> STRANGE_PART_HITS = strangePartLong("hits");
+
+    // the same as times_used, but for armor
+    public static final RegistryObject<StrangePart> STRANGE_PART_HITS_TAKEN = strangePartLong("hits_taken");
+
 //    public static final RegistryObject<StrangePart> STRANGE_PART_HITS_AIRBORNE = strangePartLong("hits_airborne");
 //    public static final RegistryObject<StrangePart> STRANGE_PART_HITS_UNDERWATER = strangePartLong("hits_underwater");
     public static final RegistryObject<StrangePart> STRANGE_PART_TIMES_FIRED = strangePartLong("times_fired");
@@ -69,7 +74,7 @@ public class Strange {
     public static final RegistryObject<StrangePart> STRANGE_PART_ORES_BROKEN = strangePartLong("ores_broken");
     // axes
     public static final RegistryObject<StrangePart> STRANGE_PART_BLOCKS_STRIPPED = strangePartLong("blocks_stripped");
-    public static final RegistryObject<StrangePart> STRANGE_PART_BLOCKS_SCRAPED = strangePartLong("blocks_scrape");
+    public static final RegistryObject<StrangePart> STRANGE_PART_BLOCKS_SCRAPED = strangePartLong("blocks_scraped");
     public static final RegistryObject<StrangePart> STRANGE_PART_BLOCKS_DEWAXED = strangePartLong("blocks_dewaxed");
     // shovels
     public static final RegistryObject<StrangePart> STRANGE_PART_BLOCKS_TILLED = strangePartLong("blocks_tilled");
@@ -77,9 +82,9 @@ public class Strange {
     public static final RegistryObject<StrangePart> STRANGE_PART_BLOCKS_PATHED = strangePartLong("blocks_pathed");
 
     // armor
-    // TODO: add damage taken (also specific damage types?)
-    public static final RegistryObject<StrangePart> STRANGE_PART_DAMAGE_BLOCKED = strangePartDouble("damage_blocked");
+    // TODO: also specific damage types?
     public static final RegistryObject<StrangePart> STRANGE_PART_DAMAGE_TAKEN = strangePartDouble("damage_taken");
+    public static final RegistryObject<StrangePart> STRANGE_PART_DAMAGE_BLOCKED = strangePartDouble("damage_blocked");
 
     // elytra
     public static final RegistryObject<StrangePart> STRANGE_PART_BLOCKS_FLOWN = strangePartDouble("blocks_flown");

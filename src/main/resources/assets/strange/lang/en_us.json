@@ -24,6 +24,8 @@
 
     "item.strange.strange_part_hits": "Strange Part: Targets Hit",
     "item.strange.strange_part_hits.desc": "Targets Hit: ",
+    "item.strange.strange_part_hits_taken": "Strange Part: Hits Taken",
+    "item.strange.strange_part_hits_taken.desc": "Hits Taken: ",
     "item.strange.strange_part_hits_critical": "Strange Part: Critical Hits",
     "item.strange.strange_part_hits_critical.desc": "Critical Hits: ",
     "item.strange.strange_part_times_fired": "Strange Part: Times Fired",
@@ -47,8 +49,8 @@
     "item.strange.strange_part_blocks_tilled": "Strange Part: Blocks Tilled",
     "item.strange.strange_part_blocks_tilled.desc": "Blocks Tilled: ",
 
-    "item.strange.strange_part_damage_reduced": "Strange Part: Damage Reduced",
-    "item.strange.strange_part_damage_reduced.desc": "Damage Reduced: ",
+    "item.strange.strange_part_damage_taken": "Strange Part: Damage Taken",
+    "item.strange.strange_part_damage_taken.desc": "Damage Taken: ",
     "item.strange.strange_part_damage_blocked": "Strange Part: Damage Blocked",
     "item.strange.strange_part_damage_blocked.desc": "Damage Blocked: ",
     "item.strange.strange_part_durability_used": "Strange Part: Durability Used",

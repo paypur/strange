@@ -37,12 +37,13 @@ public abstract class StrangePart extends Item {
         }
     }
 
+    // TODO: might need to add some sort of part exclusivity
     public abstract void createTag(ItemStack stack, CallbackInfoReturnable<ItemStack> cir);
+
+    public abstract void incrementTag(ItemStack stack, Number num);
 
     public void incrementTag(ItemStack stack) {
         incrementTag(stack, 1);
     }
-
-    public abstract void incrementTag(ItemStack stack, Number num);
 
 }

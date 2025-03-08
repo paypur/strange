@@ -59,12 +59,18 @@ public class Strangifier extends StrangePart {
         part.incrementTag(stack, num);
     }
 
+    /* TODO: maybe should cache this as nbt data
+     *       hardcode a default key?
+     */
     public StrangePart getStrangePart(ItemStack stack) {
         // order matters
         if (stack.is(Strange.TOOLS)) {
             return Strange.STRANGE_PART_BLOCKS_BROKEN.get();
         }
         if (stack.is(Strange.WEAPONS)) {
+            return Strange.STRANGE_PART_KILLS.get();
+        }
+        if (stack.is(Strange.ARMOR)) {
             return Strange.STRANGE_PART_KILLS.get();
         }
 //        if (stack.is(Strange.DAMAGEABLE)) {
