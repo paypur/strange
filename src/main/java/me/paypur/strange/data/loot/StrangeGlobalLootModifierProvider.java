@@ -21,8 +21,30 @@ public class StrangeGlobalLootModifierProvider extends GlobalLootModifierProvide
 
     @Override
     protected void start() {
-        add("strange_parts", STRANGE_PARTS.get(), new StrangeLootModifier(
-                new LootItemCondition[] { LootTableIdCondition.builder(new ResourceLocation("chests/simple_dungeon")).build() })
+        add("strange_parts", STRANGE_PARTS.get(),
+                new StrangeLootModifier(
+                    new LootItemCondition[] {
+                            LootTableIdCondition.builder(new ResourceLocation("chests/abandoned_mineshaft")).build(),
+                            LootTableIdCondition.builder(new ResourceLocation("chests/buried_treasure")).build(),
+                            LootTableIdCondition.builder(new ResourceLocation("chests/desert_pyramid")).build(),
+                            LootTableIdCondition.builder(new ResourceLocation("chests/end_city_treasure")).build(),
+                            LootTableIdCondition.builder(new ResourceLocation("chests/igloo_chest")).build(),
+                            LootTableIdCondition.builder(new ResourceLocation("chests/jungle_temple")).build(),
+                            LootTableIdCondition.builder(new ResourceLocation("chests/nether_bridge")).build(),
+                            LootTableIdCondition.builder(new ResourceLocation("chests/pillager_outpost")).build(),
+                            LootTableIdCondition.builder(new ResourceLocation("chests/shipwreck_map")).build(),
+                            LootTableIdCondition.builder(new ResourceLocation("chests/shipwreck_supply")).build(),
+                            LootTableIdCondition.builder(new ResourceLocation("chests/shipwreck_treasure")).build(),
+                            LootTableIdCondition.builder(new ResourceLocation("chests/simple_dungeon")).build(),
+                            LootTableIdCondition.builder(new ResourceLocation("chests/stronghold_corridor")).build(),
+                            LootTableIdCondition.builder(new ResourceLocation("chests/stronghold_crossing")).build(),
+                            LootTableIdCondition.builder(new ResourceLocation("chests/stronghold_library")).build(),
+                            LootTableIdCondition.builder(new ResourceLocation("chests/underwater_ruin_big")).build(),
+                            LootTableIdCondition.builder(new ResourceLocation("chests/underwater_ruin_small")).build(),
+                            LootTableIdCondition.builder(new ResourceLocation("chests/woodland_mansion")).build()
+                    },
+                    0.2f
+                )
         );
     }
 }
