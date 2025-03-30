@@ -3,6 +3,7 @@ package me.paypur.strange.event;
 import me.paypur.strange.data.StrangeItemTagsProvider;
 import me.paypur.strange.data.StrangeRecipeProvider;
 import me.paypur.strange.data.StrangeItemModelProvider;
+import me.paypur.strange.data.loot.StrangeGlobalLootModifierProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -17,6 +18,7 @@ public class ModEvents {
         generator.addProvider(new StrangeItemTagsProvider(generator, existingFileHelper));
         generator.addProvider(new StrangeRecipeProvider(generator));
         generator.addProvider(new StrangeItemModelProvider(generator, existingFileHelper));
+        generator.addProvider(new StrangeGlobalLootModifierProvider(generator));
     }
 
 }

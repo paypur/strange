@@ -1,0 +1,28 @@
+package me.paypur.strange.data.loot;
+
+import me.paypur.strange.Strange;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraftforge.common.data.GlobalLootModifierProvider;
+import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
+import net.minecraftforge.common.loot.LootTableIdCondition;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
+
+public class StrangeGlobalLootModifierProvider extends GlobalLootModifierProvider {
+    public static final DeferredRegister<GlobalLootModifierSerializer<?>> GLOBAL_LOOT_MODIFIER = DeferredRegister.create(ForgeRegistries.Keys.LOOT_MODIFIER_SERIALIZERS, Strange.MOD_ID);
+    private static final RegistryObject<StrangeLootModifier.Serializer> STRANGE_PARTS = GLOBAL_LOOT_MODIFIER.register("strange_parts", StrangeLootModifier.Serializer::new);
+
+    public StrangeGlobalLootModifierProvider(DataGenerator gen) {
+        super(gen, Strange.MOD_ID);
+    }
+
+    @Override
+    protected void start() {
+        add("strange_parts", STRANGE_PARTS.get(), new StrangeLootModifier(
+                new LootItemCondition[] { LootTableIdCondition.builder(new ResourceLocation("chests/simple_dungeon")).build() })
+        );
+    }
+}

@@ -1,5 +1,6 @@
 package me.paypur.strange;
 
+import me.paypur.strange.data.loot.StrangeGlobalLootModifierProvider;
 import me.paypur.strange.event.ForgeEvents;
 import me.paypur.strange.event.ModEvents;
 import me.paypur.strange.item.*;
@@ -14,7 +15,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-
 
 import java.util.HashMap;
 
@@ -103,6 +103,7 @@ public class Strange {
         mod.register(new ModEvents());
 
         ITEMS.register(mod);
+        StrangeGlobalLootModifierProvider.GLOBAL_LOOT_MODIFIER.register(mod);
     }
 
     private static RegistryObject<StrangePart> strangePartLong(String id) {

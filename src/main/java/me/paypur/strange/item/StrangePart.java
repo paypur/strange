@@ -1,9 +1,9 @@
 package me.paypur.strange.item;
 
 import me.paypur.strange.Strange;
+import me.paypur.strange.StrangeCreativeTab;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
@@ -15,9 +15,10 @@ import java.util.List;
 public abstract class StrangePart extends Item {
 
     protected final String NBT_KEY;
+    private static final Properties PROPS = new Item.Properties().rarity(Rarity.EPIC).tab(StrangeCreativeTab.TAB);
 
     public StrangePart(@Nullable String nbtKey) {
-        super(new Item.Properties().rarity(Rarity.EPIC).tab(CreativeModeTab.TAB_MISC));
+        super(PROPS);
         Strange.STRANGE_PART_MAP.put(nbtKey, this);
         this.NBT_KEY = nbtKey;
     }
